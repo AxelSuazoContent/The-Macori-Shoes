@@ -9,10 +9,10 @@ const products = [
     badge: null,
     desc: 'Sandalia elegante con detalles en dorado.',
     colors: [
-      { name: 'Café', hex: '#7a4a2a', photos: ['img/zapatos/cree.jpeg'] },
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/cree.jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/cree.jpeg'] },
-      { name: 'Rosita', hex: '#F898B8', photos: ['img/zapatos/cree.jpeg'] }
+      { name: 'Café', hex: '#7a4a2a', photos: ['Img/zapatos/cree.jpeg'] },
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/cree.jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/cree.jpeg'] },
+      { name: 'Rosita', hex: '#F898B8', photos: ['Img/zapatos/cree.jpeg'] }
     ]
   },
   {
@@ -25,10 +25,10 @@ const products = [
     badge: null,
     desc: 'Sandalia con diseño único y colores vibrantes.',
     colors: [
-      { name: 'Azul', hex: '#2c5f8a', photos: ['img/zapatos/calliope azul.jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/calliope.jpeg'] },
-      { name: 'Caramelo', hex: '#c49a6c', photos: ['img/zapatos/calliope.jpeg'] },
-      { name: 'Rojo', hex: '#c0392b', photos: ['img/zapatos/calliope.jpeg'] }
+      { name: 'Azul', hex: '#2c5f8a', photos: ['Img/zapatos/calliope azul.jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/calliope.jpeg'] },
+      { name: 'Caramelo', hex: '#c49a6c', photos: ['Img/zapatos/calliope.jpeg'] },
+      { name: 'Rojo', hex: '#c0392b', photos: ['Img/zapatos/calliope.jpeg'] }
     ]
   },
   {
@@ -41,11 +41,11 @@ const products = [
     badge: null,
     desc: 'Sandalia clásica con acabado en piel.',
     colors: [
-      { name: 'Rojo', hex: '#c0392b', photos: ['img/zapatos/celine rojo .jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/celine negro.jpeg'] },
-      { name: 'Leopardo', hex: '#d4a88a', photos: ['img/zapatos/celine leopardo .jpeg'] },
-      { name: 'Piel', hex: '#d4a88a', photos: ['img/zapatos/celine leopardo .jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/celine rojo .jpeg'] }
+      { name: 'Rojo', hex: '#c0392b', photos: ['Img/zapatos/celine rojo .jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/celine negro.jpeg'] },
+      { name: 'Leopardo', hex: '#d4a88a', photos: ['Img/zapatos/celine leopardo .jpeg'] },
+      { name: 'Piel', hex: '#d4a88a', photos: ['Img/zapatos/celine leopardo .jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/celine rojo .jpeg'] }
     ]
   },
   {
@@ -58,7 +58,7 @@ const products = [
     badge: 'Especial',
     desc: 'Sandalia de lujo con diseño exclusivo.',
     colors: [
-      { name: 'Rojo y Café', hex: '#7a4a2a', photos: ['img/zapatos/antonia burgundy .jpeg'] }
+      { name: 'Rojo y Café', hex: '#7a4a2a', photos: ['Img/zapatos/antonia burgundy .jpeg'] }
     ]
   },
   {
@@ -71,10 +71,10 @@ const products = [
     badge: null,
     desc: 'Sandalia versátil con combinación de colores.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/constantine beige .jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/constantine blanco .jpeg'] },
-      { name: 'Caramelo', hex: '#c49a6c', photos: ['img/zapatos/constantine beige .jpeg'] },
-      { name: 'Café', hex: '#7a4a2a', photos: ['img/zapatos/constantine cafe .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/constantine beige .jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/constantine blanco .jpeg'] },
+      { name: 'Caramelo', hex: '#c49a6c', photos: ['Img/zapatos/constantine beige .jpeg'] },
+      { name: 'Café', hex: '#7a4a2a', photos: ['Img/zapatos/constantine cafe .jpeg'] }
     ]
   },
   {
@@ -87,10 +87,10 @@ const products = [
     badge: null,
     desc: 'Sandalia con detalles metálicos.',
     colors: [
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/kataleya beige .jpeg'] },
-      { name: 'Silver', hex: '#aab0b8', photos: ['img/zapatos/kataleya silver .jpeg'] },
-      { name: 'Beige', hex: '#d4a88a', photos: ['img/zapatos/kataleya beige .jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/kataleya negro.jpeg'] }
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/kataleya beige .jpeg'] },
+      { name: 'Silver', hex: '#aab0b8', photos: ['Img/zapatos/kataleya silver .jpeg'] },
+      { name: 'Beige', hex: '#d4a88a', photos: ['Img/zapatos/kataleya beige .jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/kataleya negro.jpeg'] }
     ]
   },
   {
@@ -103,7 +103,7 @@ const products = [
     badge: null,
     desc: 'Sandalia con estampado de leopardo.',
     colors: [
-      { name: 'Leopardo', hex: '#d4a88a', photos: ['img/zapatos/hila leopardo .jpeg'] }
+      { name: 'Leopardo', hex: '#d4a88a', photos: ['Img/zapatos/hila leopardo .jpeg'] }
     ]
   },
   {
@@ -116,7 +116,7 @@ const products = [
     badge: null,
     desc: 'Sandalia básica en color negro.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/harinder negro .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/harinder negro .jpeg'] }
     ]
   },
   {
@@ -129,8 +129,8 @@ const products = [
     badge: null,
     desc: 'Sandalia con detalles dorados.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/hannia negro.jpeg'] },
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/hannia gold .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/hannia negro.jpeg'] },
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/hannia gold .jpeg'] }
     ]
   },
   {
@@ -143,9 +143,9 @@ const products = [
     badge: null,
     desc: 'Sandalia con combinación de colores cálidos.',
     colors: [
-      { name: 'Café', hex: '#7a4a2a', photos: ['img/zapatos/heidy cafe.jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/heidy negro.jpeg'] },
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/heidy gold.jpeg'] }
+      { name: 'Café', hex: '#7a4a2a', photos: ['Img/zapatos/heidy cafe.jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/heidy negro.jpeg'] },
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/heidy gold.jpeg'] }
     ]
   },
   {
@@ -158,11 +158,11 @@ const products = [
     badge: null,
     desc: 'Sandalia con múltiples opciones de color.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/candelaria negro.jpeg'] },
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/candelaria negro.jpeg'] },
-      { name: 'Caramel', hex: '#c49a6c', photos: ['img/zapatos/candelaria caramel.jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/candelaria blanco.jpeg'] },
-      { name: 'Silver', hex: '#aab0b8', photos: ['img/zapatos/candelaria silver .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/candelaria negro.jpeg'] },
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/candelaria negro.jpeg'] },
+      { name: 'Caramel', hex: '#c49a6c', photos: ['Img/zapatos/candelaria caramel.jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/candelaria blanco.jpeg'] },
+      { name: 'Silver', hex: '#aab0b8', photos: ['Img/zapatos/candelaria silver .jpeg'] }
     ]
   },
   {
@@ -175,9 +175,9 @@ const products = [
     badge: null,
     desc: 'Sandalia elegante con tonos neutros.',
     colors: [
-      { name: 'Beige', hex: '#d4a88a', photos: ['img/zapatos/masie beige .jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/masie negro .jpeg'] },
-      { name: 'Silver', hex: '#aab0b8', photos: ['img/zapatos/masie silver .jpeg'] }
+      { name: 'Beige', hex: '#d4a88a', photos: ['Img/zapatos/masie beige .jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/masie negro .jpeg'] },
+      { name: 'Silver', hex: '#aab0b8', photos: ['Img/zapatos/masie silver .jpeg'] }
     ]
   },
   {
@@ -190,9 +190,9 @@ const products = [
     badge: null,
     desc: 'Sandalia con colores contrastantes.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/fiorella negro.jpeg'] },
-      { name: 'Rojo', hex: '#c0392b', photos: ['img/zapatos/fiorella rojo .jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/fiorella blanco .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/fiorella negro.jpeg'] },
+      { name: 'Rojo', hex: '#c0392b', photos: ['Img/zapatos/fiorella rojo .jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/fiorella blanco .jpeg'] }
     ]
   },
   {
@@ -205,9 +205,9 @@ const products = [
     badge: null,
     desc: 'Sandalia para tallas grandes.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/harlow negro.jpeg'] },
-      { name: 'Beige', hex: '#d4a88a', photos: ['img/zapatos/harlow beige.jpeg'] },
-      { name: 'Cefe', hex: '#d4a88a', photos: ['img/zapatos/harlow cafe.jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/harlow negro.jpeg'] },
+      { name: 'Beige', hex: '#d4a88a', photos: ['Img/zapatos/harlow beige.jpeg'] },
+      { name: 'Cefe', hex: '#d4a88a', photos: ['Img/zapatos/harlow cafe.jpeg'] }
     ]
   },
   {
@@ -220,9 +220,9 @@ const products = [
     badge: null,
     desc: 'Sandalia con tonos tierra.',
     colors: [
-      { name: 'Café', hex: '#7a4a2a', photos: ['img/zapatos/carmellia cafe .jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/carmelia negro .jpeg'] },
-      { name: 'Burgundy', hex: '#722f37', photos: ['img/zapatos/carmelia vino .jpeg'] }
+      { name: 'Café', hex: '#7a4a2a', photos: ['Img/zapatos/carmellia cafe .jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/carmelia negro .jpeg'] },
+      { name: 'Burgundy', hex: '#722f37', photos: ['Img/zapatos/carmelia vino .jpeg'] }
     ]
   },
   {
@@ -235,7 +235,7 @@ const products = [
     badge: null,
     desc: 'Sandalia con combinación clásica.',
     colors: [
-      { name: 'Negro y Café', hex: '#7a4a2a', photos: ['img/zapatos/vincentina negro .jpeg'] }
+      { name: 'Negro y Café', hex: '#7a4a2a', photos: ['Img/zapatos/vincentina negro .jpeg'] }
     ]
   },
   {
@@ -248,7 +248,7 @@ const products = [
     badge: null,
     desc: 'Sandalia con estampado de vaca.',
     colors: [
-      { name: 'Negro y Cow', hex: '#1a1a18', photos: ['img/zapatos/candes negro .jpeg'] }
+      { name: 'Negro y Cow', hex: '#1a1a18', photos: ['Img/zapatos/candes negro .jpeg'] }
     ]
   },
   {
@@ -261,7 +261,7 @@ const products = [
     badge: null,
     desc: 'Sandalia en tonos café y negro.',
     colors: [
-      { name: 'Negro y Café', hex: '#7a4a2a', photos: ['img/zapatos/harmonie negro .jpeg'] }
+      { name: 'Negro y Café', hex: '#7a4a2a', photos: ['Img/zapatos/harmonie negro .jpeg'] }
     ]
   },
   {
@@ -275,7 +275,7 @@ const products = [
     oldPrice: 850,
     desc: 'Sandalia económica con estilo.',
     colors: [
-      { name: 'Negro y Café', hex: '#7a4a2a', photos: ['img/zapatos/euphemie negro .jpeg'] }
+      { name: 'Negro y Café', hex: '#7a4a2a', photos: ['Img/zapatos/euphemie negro .jpeg'] }
     ]
   },
   {
@@ -288,9 +288,9 @@ const products = [
     badge: null,
     desc: 'Sandalia con colores vibrantes.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/caroline negro.jpeg'] },
-      { name: 'Rojo', hex: '#c0392b', photos: ['img/zapatos/celine rojo .jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/caroline blanco .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/caroline negro.jpeg'] },
+      { name: 'Rojo', hex: '#c0392b', photos: ['Img/zapatos/celine rojo .jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/caroline blanco .jpeg'] }
     ]
   },
   {
@@ -303,9 +303,9 @@ const products = [
     badge: null,
     desc: 'Sandalia con tonos neutros.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/estefania negro .jpeg'] },
-      { name: 'Beige', hex: '#d4a88a', photos: ['img/zapatos/estefania beige .jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/estefania blanco .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/estefania negro .jpeg'] },
+      { name: 'Beige', hex: '#d4a88a', photos: ['Img/zapatos/estefania beige .jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/estefania blanco .jpeg'] }
     ]
   },
   {
@@ -318,9 +318,9 @@ const products = [
     badge: null,
     desc: 'Sandalia con estampados animales.',
     colors: [
-      { name: 'Rojo', hex: '#c0392b', photos: ['img/zapatos/carmia rojo.jpeg'] },
-      { name: 'Leopardo', hex: '#d4a88a', photos: ['img/zapatos/carmia leopardo .jpeg'] },
-      { name: 'Cow', hex: '#1a1a18', photos: ['img/zapatos/carmia cow .jpeg'] }
+      { name: 'Rojo', hex: '#c0392b', photos: ['Img/zapatos/carmia rojo.jpeg'] },
+      { name: 'Leopardo', hex: '#d4a88a', photos: ['Img/zapatos/carmia leopardo .jpeg'] },
+      { name: 'Cow', hex: '#1a1a18', photos: ['Img/zapatos/carmia cow .jpeg'] }
     ]
   },
   {
@@ -333,7 +333,7 @@ const products = [
     badge: null,
     desc: 'Sandalia clásica en negro.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/cleva negro.jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/cleva negro.jpeg'] }
     ]
   },
   {
@@ -346,8 +346,8 @@ const products = [
     badge: null,
     desc: 'Sandalia en rojo y negro.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/choe negros.jpeg'] },
-      { name: 'Rojo', hex: '#c0392b', photos: ['img/zapatos/choe rojos.jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/choe negros.jpeg'] },
+      { name: 'Rojo', hex: '#c0392b', photos: ['Img/zapatos/choe rojos.jpeg'] }
     ]
   },
   {
@@ -360,8 +360,8 @@ const products = [
     badge: null,
     desc: 'Sandalia en tonos azul y beige.',
     colors: [
-      { name: 'Azul', hex: '#2c5f8a', photos: ['img/zapatos/rhodes azul .jpeg'] },
-      { name: 'Beige', hex: '#d4a88a', photos: ['img/zapatos/rhodes beige .jpeg'] }
+      { name: 'Azul', hex: '#2c5f8a', photos: ['Img/zapatos/rhodes azul .jpeg'] },
+      { name: 'Beige', hex: '#d4a88a', photos: ['Img/zapatos/rhodes beige .jpeg'] }
     ]
   },
   {
@@ -374,8 +374,8 @@ const products = [
     badge: null,
     desc: 'Sandalia con detalles en rosa.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/celia negro .jpeg'] },
-      { name: 'Rosita', hex: '#F898B8', photos: ['img/zapatos/celia rosa.jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/celia negro .jpeg'] },
+      { name: 'Rosita', hex: '#F898B8', photos: ['Img/zapatos/celia rosa.jpeg'] }
     ]
   },
   {
@@ -388,7 +388,7 @@ const products = [
     badge: null,
     desc: 'Sandalia en tonos café.',
     colors: [
-      { name: 'Negro y Caramel', hex: '#c49a6c', photos: ['img/zapatos/virginia caramelo.jpeg'] }
+      { name: 'Negro y Caramel', hex: '#c49a6c', photos: ['Img/zapatos/virginia caramelo.jpeg'] }
     ]
   },
   {
@@ -401,10 +401,10 @@ const products = [
     badge: null,
     desc: 'Sandalia con múltiples colores.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/evana negro .jpeg'] },
-      { name: 'Rosita', hex: '#F898B8', photos: ['img/zapatos/evana negro .jpeg'] },
-      { name: 'Azul', hex: '#2c5f8a', photos: ['img/zapatos/evana azul .jpeg'] },
-      { name: 'Silver', hex: '#aab0b8', photos: ['img/zapatos/evana silver .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/evana negro .jpeg'] },
+      { name: 'Rosita', hex: '#F898B8', photos: ['Img/zapatos/evana negro .jpeg'] },
+      { name: 'Azul', hex: '#2c5f8a', photos: ['Img/zapatos/evana azul .jpeg'] },
+      { name: 'Silver', hex: '#aab0b8', photos: ['Img/zapatos/evana silver .jpeg'] }
     ]
   },
   {
@@ -417,8 +417,8 @@ const products = [
     badge: null,
     desc: 'Sandalia con detalles dorados.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/hattie negro .jpeg'] },
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/hattie gold .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/hattie negro .jpeg'] },
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/hattie gold .jpeg'] }
     ]
   },
   {
@@ -431,9 +431,9 @@ const products = [
     badge: null,
     desc: 'Sandalia en tonos neutros y dorado.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/candy negro .jpeg'] },
-      { name: 'Beige', hex: '#d4a88a', photos: ['img/zapatos/candy beige .jpeg'] },
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/candy gold .jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/candy negro .jpeg'] },
+      { name: 'Beige', hex: '#d4a88a', photos: ['Img/zapatos/candy beige .jpeg'] },
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/candy gold .jpeg'] }
     ]
   },
   {
@@ -446,8 +446,8 @@ const products = [
     badge: null,
     desc: 'Sandalia en tonos beige y blanco.',
     colors: [
-      { name: 'Tan', hex: '#d4a88a', photos: ['img/zapatos/hudson tan .jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/hudson tan .jpeg'] }
+      { name: 'Tan', hex: '#d4a88a', photos: ['Img/zapatos/hudson tan .jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/hudson tan .jpeg'] }
     ]
   },
   {
@@ -460,7 +460,7 @@ const products = [
     badge: null,
     desc: 'Sandalia en color plata.',
     colors: [
-      { name: 'Plata', hex: '#aab0b8', photos: ['img/zapatos/nina silver .jpeg'] }
+      { name: 'Plata', hex: '#aab0b8', photos: ['Img/zapatos/nina silver .jpeg'] }
     ]
   },
   {
@@ -473,8 +473,8 @@ const products = [
     badge: null,
     desc: 'Sandalia con hebilla en color vino.',
     colors: [
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/chic buckle negro.jpeg'] },
-      { name: 'Vino', hex: '#722f37', photos: ['img/zapatos/chic buckle vino.jpeg'] }
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/chic buckle negro.jpeg'] },
+      { name: 'Vino', hex: '#722f37', photos: ['Img/zapatos/chic buckle vino.jpeg'] }
     ]
   },
   {
@@ -487,9 +487,9 @@ const products = [
     badge: null,
     desc: 'Sandalia con detalles dorados y plateados.',
     colors: [
-      { name: 'Gold', hex: '#c9a84c', photos: ['img/zapatos/fifi gold .jpeg'] },
-      { name: 'Negro', hex: '#1a1a18', photos: ['img/zapatos/fifi negro .jpeg'] },
-      { name: 'Blanco', hex: '#f5f0eb', photos: ['img/zapatos/fifi blanco.jpeg'] }
+      { name: 'Gold', hex: '#c9a84c', photos: ['Img/zapatos/fifi gold .jpeg'] },
+      { name: 'Negro', hex: '#1a1a18', photos: ['Img/zapatos/fifi negro .jpeg'] },
+      { name: 'Blanco', hex: '#f5f0eb', photos: ['Img/zapatos/fifi blanco.jpeg'] }
     ]
   }
 ];
