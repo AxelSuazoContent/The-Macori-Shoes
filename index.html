@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Macori Shoes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mag:#A02060;--fus:#D83080;--rose:#F05090;--blush:#F898B8;
+  --papery:#FDDDE8;--cream:#FEF6F9;--white:#fff;
+  --dark:#1c0a12;--muted:#9a6878;--border:#f0c8d8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;display:flex;flex-direction:column;}
+
+/* ════════════════════════════════
+   ANNOUNCEMENT BAR
+════════════════════════════════ */
+.ann{background:var(--mag);color:#fff;text-align:center;padding:.45rem 1rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;flex-shrink:0;}
+
+/* ════════════════════════════════
+   NAV
+════════════════════════════════ */
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:300;flex-shrink:0;}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:.85rem 2rem;}
+.logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--dark);text-decoration:none;display:flex;align-items:center;gap:.5rem;}
+.logo-icon{font-size:1.45rem;}
+.logo em{color:var(--mag);font-style:italic;}
+.nav-right{display:flex;align-items:center;gap:1rem;}
+.nav-links-desktop{display:flex;gap:0;list-style:none;}
+.nav-links-desktop a{padding:.5rem 1.1rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--muted);font-weight:500;border-bottom:2px solid transparent;transition:all .2s;cursor:pointer;}
+.nav-links-desktop a:hover,.nav-links-desktop a.active{color:var(--mag);border-bottom-color:var(--mag);}
+.icon-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--dark);position:relative;padding:.2rem;}
+.cbadge{position:absolute;top:-6px;right:-6px;background:var(--fus);color:#fff;border-radius:50%;width:16px;height:16px;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.hamburger{display:none;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--dark);}
+
+/* mobile nav drawer */
+.mob-drawer{display:none;flex-direction:column;border-top:1px solid var(--border);background:var(--white);}
+.mob-drawer.open{display:flex;}
+.mob-drawer a{padding:.9rem 2rem;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;}
+.mob-drawer a:hover{color:var(--mag);}
+
+/* ════════════════════════════════
+   VIEW ROUTER
+════════════════════════════════ */
+.view{display:none;flex:1;}
+.view.active{display:flex;flex:1;flex-direction:column;}
+
+/* ════════════════════════════════
+   VIEW: INICIO (LANDING)
+════════════════════════════════ */
+.hero{
+  background:linear-gradient(150deg,#fce4ef 0%,var(--papery) 60%,#fde8f2 100%);
+  padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{content:'🌸';position:absolute;top:2rem;left:3rem;font-size:5rem;opacity:.12;}
+.hero::after{content:'🌺';position:absolute;bottom:2rem;right:3rem;font-size:6rem;opacity:.1;}
+.hero-eye{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fus);margin-bottom:1rem;font-weight:500;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6vw,4.5rem);line-height:1.06;margin-bottom:1.1rem;}
+.hero-title em{color:var(--mag);font-style:italic;}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--muted);max-width:400px;margin:0 auto 2.2rem;line-height:1.7;}
+.btn{display:inline-block;padding:.82rem 2.1rem;border-radius:2px;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;border:none;font-family:'Inter',sans-serif;}
+.btn-primary{background:var(--mag);color:#fff;}
+.btn-primary:hover{background:var(--dark);}
+.btn-ghost{background:transparent;color:var(--mag);border:1px solid var(--blush);margin-left:.8rem;}
+.btn-ghost:hover{background:var(--papery);}
+
+/* promo strip */
+.strip{display:flex;overflow:hidden;background:var(--papery);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.65rem 0;}
+.strip-track{display:flex;gap:3rem;animation:scroll 20s linear infinite;white-space:nowrap;}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.strip-item{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--fus);font-weight:500;display:flex;align-items:center;gap:.5rem;}
+.strip-item::before{content:'✦';font-size:.55rem;}
+
+/* features */
+.features{padding:4rem 2rem;display:grid;grid-template-columns:repeat(5,minmax(180px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto;}
+.feat{text-align:center;padding:1.5rem;}
+.feat-icon{font-size:2.2rem;margin-bottom:.8rem;}
+.feat-title{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:.4rem;}
+.feat-desc{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+/* bestsellers on landing */
+.home-cats{padding:1rem 2rem 4rem;max-width:1000px;margin:0 auto;width:100%;}
+.sec-label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.5rem;}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:2rem;}
+.cat-cards{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:1rem;}
+.cat-card{background:var(--papery);border:1px solid var(--border);border-radius:4px;padding:2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;}
+.cat-card:hover{background:var(--mag);color:#fff;transform:translateY(-2px);}
+.cat-card:hover .cat-card-label{color:#fff;}
+.cat-card:hover .cat-card-sub{color:rgba(255,255,255,.7);}
+.cat-card-icon{font-size:2.4rem;margin-bottom:.6rem;line-height:1;}
+.cat-card-label{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);margin-bottom:.2rem;}
+.cat-card-sub{font-size:.72rem;color:var(--muted);letter-spacing:.05em;}
+
+/* instagram strip */
+.ig-section{background:var(--dark);color:#fff;padding:3rem 2rem;text-align:center;}
+.ig-section h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.4rem;}
+.ig-section p{color:var(--blush);font-size:.85rem;margin-bottom:1.5rem;}
+.ig-handle{font-size:1rem;font-weight:600;color:var(--rose);letter-spacing:.05em;}
+
+/* ════════════════════════════════
+   VIEW: NOSOTROS
+════════════════════════════════ */
+.about-hero{background:var(--dark);color:#fff;padding:5rem 2rem;text-align:center;}
+.about-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:.8rem;}
+.about-hero p{color:var(--blush);font-size:1rem;max-width:500px;margin:0 auto;}
+.about-body{max-width:800px;margin:0 auto;padding:4rem 2rem;}
+.about-block{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:4rem;}
+.about-block.rev{direction:rtl;}
+.about-block.rev > *{direction:ltr;}
+.about-img-ph{height:340px;background:var(--papery);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:5rem;border:1px solid var(--border);overflow:hidden;}
+.about-img-ph img{width:100%;height:100%;object-fit:cover;display:block;}
+.about-text .tag{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.6rem;}
+.about-text h2{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:.8rem;line-height:1.2;}
+.about-text p{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:.8rem;}
+.values{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.2rem;background:var(--papery);padding:2.5rem;border-radius:4px;border:1px solid var(--border);}
+.val-item{text-align:center;}
+.val-icon{font-size:1.8rem;margin-bottom:.4rem;}
+.val-title{font-weight:600;font-size:.85rem;color:var(--mag);margin-bottom:.2rem;}
+.val-desc{font-size:.75rem;color:var(--muted);line-height:1.5;}
+@media(max-width:640px){.about-block{grid-template-columns:1fr;gap:1.5rem;}.about-block.rev{direction:ltr;}}
+
+/* ════════════════════════════════
+   VIEW: CATÁLOGO
+════════════════════════════════ */
+.cat-bar{background:var(--white);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.pill{padding:.36rem .95rem;border-radius:2rem;border:1px solid var(--border);background:none;font-size:.76rem;color:var(--muted);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.pill:hover,.pill.active{background:var(--mag);color:#fff;border-color:var(--mag);}
+.srch-wrap{margin-left:auto;position:relative;}
+.srch-wrap input{padding:.36rem 1rem .36rem 2rem;border:1px solid var(--border);border-radius:2rem;font-size:.8rem;width:190px;background:var(--cream);outline:none;font-family:'Inter',sans-serif;color:var(--dark);}
+.srch-wrap input:focus{border-color:var(--rose);}
+.srch-icon{position:absolute;left:.65rem;top:50%;transform:translateY(-50%);font-size:.8rem;color:var(--muted);pointer-events:none;}
+.catalog-wrap{padding:2.2rem 2rem 4rem;}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.6rem;}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:1.5rem;}
+.sec-head span{font-size:.78rem;color:var(--muted);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.1rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(160,32,96,.09);}
+.card-img{height:200px;background:var(--papery);display:flex;align-items:center;justify-content:center;font-size:4.2rem;position:relative;overflow:hidden;}
+.card-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.badge{position:absolute;top:9px;left:9px;background:var(--mag);color:#fff;font-size:.6rem;font-weight:600;padding:.2rem .55rem;letter-spacing:.07em;text-transform:uppercase;border-radius:1px;}
+.badge.sale{background:var(--rose);}
+.card-body{padding:.85rem 1rem 1rem;}
+.card-cat{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blush);margin-bottom:.2rem;font-weight:500;}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;margin-bottom:.12rem;color:var(--dark);}
+.card-sizes{font-size:.71rem;color:var(--muted);margin-bottom:.65rem;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;}
+.card-actions{display:flex;gap:.5rem;}
+.card-price{font-size:.98rem;font-weight:700;color:var(--mag);}
+.card-price .old{font-size:.74rem;color:var(--blush);text-decoration:line-through;margin-left:.3rem;font-weight:400;}
+.add-btn{background:var(--dark);color:#fff;border:none;padding:.45rem .95rem;border-radius:2px;font-size:.73rem;font-weight:500;cursor:pointer;letter-spacing:.05em;transition:background .15s;font-family:'Inter',sans-serif;}
+.add-btn:hover{background:var(--mag);}
+.look-btn{background:transparent;color:var(--dark);border:1px solid var(--border);padding:.45rem .95rem;border-radius:2px;font-size:.73rem;font-weight:500;cursor:pointer;letter-spacing:.05em;transition:all .15s;font-family:'Inter',sans-serif;}
+.look-btn:hover{background:var(--papery);border-color:var(--mag);color:var(--mag);}
+.empty-state{text-align:center;padding:5rem 2rem;color:var(--muted);}
+.empty-state .eicon{font-size:3rem;margin-bottom:1rem;}
+
+/* ════════════════════════════════
+   VIEW: PRUEBA TU LOOK
+════════════════════════════════ */
+.look-wrap{padding:2.5rem 2rem 4rem;max-width:1100px;margin:0 auto;flex:1;}
+.look-header{text-align:center;margin-bottom:2.5rem;}
+.look-header .tag{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.5rem;}
+.look-header h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:.5rem;}
+.look-header p{color:var(--muted);font-size:.88rem;max-width:440px;margin:0 auto;}
+.look-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;}
+/* LEFT: upload + preview */
+.look-left{}
+.upload-zone{
+  border:2px dashed var(--border);border-radius:6px;
+  padding:2.5rem 1.5rem;text-align:center;cursor:pointer;
+  background:var(--papery);transition:border-color .2s;margin-bottom:1rem;
+  position:relative;
+}
+.upload-zone:hover{border-color:var(--rose);}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.uz-icon{font-size:2.5rem;margin-bottom:.6rem;}
+.uz-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);margin-bottom:.3rem;}
+.uz-sub{font-size:.78rem;color:var(--muted);}
+.preview-photo{display:none;width:100%;border-radius:6px;border:1px solid var(--border);max-height:380px;object-fit:contain;background:var(--white);}
+.preview-photo.show{display:block;}
+.reset-btn{display:none;margin-top:.6rem;background:none;border:1px solid var(--border);color:var(--muted);border-radius:2rem;padding:.35rem .9rem;font-size:.75rem;cursor:pointer;font-family:'Inter',sans-serif;}
+.reset-btn:hover{border-color:var(--rose);color:var(--mag);}
+.reset-btn.show{display:block;}
+/* RIGHT: shoe picker + selected preview */
+.look-right{}
+.look-right h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.8rem;color:var(--dark);}
+.shoe-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;max-height:320px;overflow-y:auto;padding-right:.3rem;}
+.shoe-picker::-webkit-scrollbar{width:4px;}
+.shoe-picker::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.shoe-opt{border:2px solid var(--border);border-radius:4px;padding:.6rem;text-align:center;cursor:pointer;transition:all .15s;background:var(--papery);}
+.shoe-opt:hover{border-color:var(--rose);}
+.shoe-opt.picked{border-color:var(--mag);background:var(--papery);}
+.shoe-opt .sicon{font-size:2rem;display:block;margin-bottom:.3rem;}
+.shoe-opt .sname{font-size:.68rem;color:var(--dark);font-weight:500;line-height:1.3;}
+.shoe-opt .sprice{font-size:.65rem;color:var(--mag);font-weight:700;margin-top:.1rem;}
+.selected-shoe{margin-top:1.2rem;padding:1rem;background:var(--white);border:1px solid var(--border);border-radius:4px;display:none;}
+.selected-shoe.show{display:block;}
+.ss-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.5rem;}
+.ss-inner{display:flex;align-items:center;gap:.8rem;}
+.ss-emoji{font-size:2.8rem;}
+.ss-info{}
+.ss-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--dark);}
+.ss-price{font-size:.9rem;font-weight:700;color:var(--mag);margin-top:.1rem;}
+.ss-actions{display:flex;gap:.5rem;margin-top:.8rem;}
+.ss-add{background:var(--mag);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:2px;font-size:.75rem;font-weight:500;cursor:pointer;letter-spacing:.05em;font-family:'Inter',sans-serif;}
+.ss-add:hover{background:var(--dark);}
+.ss-sizes{font-size:.72rem;color:var(--muted);margin-top:.4rem;}
+/* bottom: combined look */
+.look-combo{margin-top:2rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:6px;display:none;}
+.look-combo.show{display:block;}
+.combo-title{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1rem;color:var(--dark);text-align:center;}
+.combo-inner{display:flex;align-items:flex-start;justify-content:center;gap:2rem;flex-wrap:wrap;}
+.combo-photo{width:220px;border-radius:4px;border:1px solid var(--border);object-fit:contain;max-height:280px;background:var(--papery);}
+.combo-shoe-side{text-align:center;}
+.combo-shoe-icon{font-size:5rem;display:block;margin-bottom:.4rem;}
+.combo-shoe-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);}
+.combo-shoe-price{font-size:.9rem;color:var(--mag);font-weight:700;margin-top:.2rem;}
+.combo-shoe-hint{font-size:.75rem;color:var(--muted);margin-top:.3rem;}
+.combo-add-btn{display:inline-block;margin-top:.8rem;background:var(--mag);color:#fff;border:none;padding:.55rem 1.3rem;border-radius:2px;font-size:.78rem;font-weight:500;cursor:pointer;letter-spacing:.05em;font-family:'Inter',sans-serif;}
+.combo-add-btn:hover{background:var(--dark);}
+@media(max-width:720px){
+  .look-layout{grid-template-columns:1fr;}
+  .shoe-picker{grid-template-columns:repeat(4,1fr);max-height:none;}
+}
+
+/* ════════════════════════════════
+   CART OVERLAY
+════════════════════════════════ */
+.cart-overlay{display:none;position:fixed;inset:0;z-index:500;}
+.cart-bd{position:absolute;inset:0;background:rgba(28,10,18,.45);}
+.cart-panel{position:absolute;right:0;top:0;bottom:0;width:min(390px,100vw);background:var(--white);display:flex;flex-direction:column;}
+.cp-head{padding:1rem 1.3rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.cp-head h2{font-family:'Playfair Display',serif;font-size:1.15rem;}
+.cp-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);}
+.cp-close:hover{color:var(--mag);}
+.cp-body{flex:1;overflow-y:auto;padding:.9rem 1.3rem;}
+.cp-empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.85rem;}
+.ci{display:flex;gap:.8rem;padding:.8rem 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.ci-img{width:54px;height:54px;background:var(--papery);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+.ci-info{flex:1;}
+.ci-name{font-weight:500;font-size:.85rem;color:var(--dark);}
+.ci-size{font-size:.7rem;color:var(--muted);margin-top:.1rem;}
+.ci-price{font-weight:700;color:var(--mag);font-size:.88rem;margin-top:.15rem;}
+.qrow{display:flex;align-items:center;gap:.35rem;margin-top:.3rem;}
+.qb{width:20px;height:20px;border:1px solid var(--border);background:none;border-radius:2px;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;}
+.qb:hover{background:var(--mag);color:#fff;border-color:var(--mag);}
+.qv{font-size:.8rem;font-weight:600;min-width:12px;text-align:center;}
+.ci-rm{background:none;border:none;color:var(--blush);cursor:pointer;font-size:.95rem;}
+.ci-rm:hover{color:var(--mag);}
+.cp-foot{padding:1rem 1.3rem;border-top:1px solid var(--border);}
+.tot-row{display:flex;justify-content:space-between;font-weight:700;font-size:.98rem;margin-bottom:.9rem;}
+.wa-btn{display:block;width:100%;padding:.9rem;background:#25D366;color:#fff;border:none;border-radius:3px;font-size:.85rem;font-weight:700;cursor:pointer;text-align:center;letter-spacing:.04em;font-family:'Inter',sans-serif;transition:background .15s;}
+.wa-btn:hover{background:#1da851;}
+.cart-note{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.45rem;}
+
+/* ════════════════════════════════
+   SIZE MODAL
+════════════════════════════════ */
+.sz-modal{display:none;position:fixed;inset:0;z-index:600;align-items:center;justify-content:center;}
+.sz-modal.open{display:flex;}
+.sz-bd{position:absolute;inset:0;background:rgba(28,10,18,.5);}
+.sz-box{position:relative;background:var(--white);border-radius:6px;padding:1.7rem;width:min(340px,90vw);}
+.sz-box h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.2rem;}
+.sz-box p{font-size:.8rem;color:var(--muted);margin-bottom:1rem;}
+.sz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-bottom:1rem;}
+.sz-opt{padding:.52rem;text-align:center;border:1px solid var(--border);border-radius:2px;cursor:pointer;font-size:.83rem;font-weight:500;transition:all .15s;color:var(--dark);background:none;font-family:'Inter',sans-serif;}
+.sz-opt:hover{border-color:var(--rose);}
+.sz-opt.sel{background:var(--mag);color:#fff;border-color:var(--mag);}
+.sz-confirm{width:100%;padding:.75rem;background:var(--mag);color:#fff;border:none;border-radius:2px;font-size:.82rem;font-weight:600;cursor:pointer;letter-spacing:.05em;font-family:'Inter',sans-serif;}
+.sz-confirm:hover{background:var(--dark);}
+
+/* ════════════════════════════════
+   PRODUCT DETAIL MODAL
+════════════════════════════════ */
+.pd-modal{display:none;position:fixed;inset:0;z-index:700;align-items:center;justify-content:center;padding:1rem;}
+.pd-modal.open{display:flex;}
+.pd-bd{position:absolute;inset:0;background:rgba(28,10,18,.55);}
+.pd-box{
+  position:relative;background:var(--white);border-radius:8px;
+  width:min(820px,100%);max-height:90vh;overflow-y:auto;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.pd-box::-webkit-scrollbar{width:4px;}
+.pd-box::-webkit-scrollbar-thumb{background:var(--border);}
+/* imagen lado izquierdo */
+.pd-gallery{position:relative;background:var(--papery);min-height:380px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:8px 0 0 8px;}
+.pd-main-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:opacity .3s;}
+.pd-main-emoji{font-size:7rem;z-index:1;}
+.pd-thumb-row{position:absolute;bottom:.8rem;left:50%;transform:translateX(-50%);display:flex;gap:.4rem;z-index:2;}
+.pd-thumb{width:46px;height:46px;border-radius:3px;border:2px solid rgba(255,255,255,.6);background:var(--white);overflow:hidden;cursor:pointer;transition:border-color .15s;flex-shrink:0;}
+.pd-thumb img{width:100%;height:100%;object-fit:cover;}
+.pd-thumb.active{border-color:var(--mag);}
+.pd-close{position:absolute;top:.8rem;right:.8rem;background:rgba(255,255,255,.9);border:none;width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;color:var(--dark);}
+.pd-close:hover{background:var(--mag);color:#fff;}
+/* info lado derecho */
+.pd-info{padding:2rem 1.8rem;display:flex;flex-direction:column;gap:.9rem;}
+.pd-cat{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--blush);font-weight:500;}
+.pd-name{font-family:'Playfair Display',serif;font-size:1.6rem;line-height:1.15;color:var(--dark);}
+.pd-price{font-size:1.3rem;font-weight:700;color:var(--mag);}
+.pd-price .pd-old{font-size:.9rem;color:var(--blush);text-decoration:line-through;margin-left:.4rem;font-weight:400;}
+/* colores */
+.pd-section-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.4rem;}
+.color-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
+.color-swatch{
+  width:30px;height:30px;border-radius:50%;cursor:pointer;
+  border:3px solid transparent;transition:all .15s;position:relative;
+  box-shadow:0 1px 4px rgba(0,0,0,.15);
+}
+.color-swatch:hover{transform:scale(1.12);}
+.color-swatch.active{border-color:var(--dark);box-shadow:0 0 0 2px var(--white),0 0 0 4px var(--dark);}
+.color-label{font-size:.8rem;color:var(--muted);margin-left:.2rem;}
+/* tallas en modal detalle */
+.pd-sizes-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem;}
+.pd-sz{padding:.48rem;text-align:center;border:1px solid var(--border);border-radius:2px;cursor:pointer;font-size:.82rem;font-weight:500;transition:all .15s;color:var(--dark);background:none;font-family:'Inter',sans-serif;}
+.pd-sz:hover{border-color:var(--rose);}
+.pd-sz.sel{background:var(--mag);color:#fff;border-color:var(--mag);}
+.pd-desc{font-size:.82rem;color:var(--muted);line-height:1.7;}
+.pd-add-btn{background:var(--mag);color:#fff;border:none;padding:.9rem;border-radius:3px;font-size:.85rem;font-weight:600;cursor:pointer;letter-spacing:.06em;font-family:'Inter',sans-serif;transition:background .15s;width:100%;}
+.pd-add-btn:hover{background:var(--dark);}
+.pd-look-btn{background:var(--dark);color:#fff;border:none;padding:.9rem;border-radius:3px;font-size:.85rem;font-weight:600;cursor:pointer;letter-spacing:.06em;font-family:'Inter',sans-serif;transition:background .15s;width:100%;margin-top:.55rem;}
+.pd-look-btn:hover{background:var(--mag);}
+.pd-wa-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:.7rem;border-radius:3px;font-size:.8rem;cursor:pointer;font-family:'Inter',sans-serif;width:100%;transition:all .15s;margin-top:.55rem;}
+.pd-wa-btn:hover{border-color:#25D366;color:#25D366;}
+@media(max-width:640px){
+  .pd-box{grid-template-columns:1fr;max-height:95vh;}
+  .pd-gallery{min-height:260px;border-radius:8px 8px 0 0;}
+  .pd-info{padding:1.3rem 1.2rem;}
+}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+.site-footer{background:var(--dark);color:#fff;padding:3.5rem 2rem 1.5rem;margin-top:auto;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2rem;}
+.footer-col h4{font-family:'Playfair Display',serif;font-size:.95rem;margin-bottom:.8rem;color:var(--blush);}
+.footer-col p,.footer-col a{font-size:.78rem;color:rgba(255,255,255,.55);text-decoration:none;line-height:1.9;display:block;}
+.footer-col a:hover{color:var(--rose);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.footer-bottom p{font-size:.68rem;color:rgba(255,255,255,.3);letter-spacing:.05em;}
+.socials{display:flex;gap:.8rem;}
+.socials a{font-size:.78rem;color:rgba(255,255,255,.4);text-decoration:none;}
+.socials a:hover{color:var(--rose);}
+
+/* ════════════════════════════════
+   TOAST
+════════════════════════════════ */
+.toast{position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%);background:var(--mag);color:#fff;padding:.65rem 1.5rem;border-radius:2rem;font-size:.8rem;font-weight:500;z-index:700;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
+
+/* ════════════════════════════════
+   RESPONSIVE HELPERS
+════════════════════════════════ */
+@media(max-width:640px){
+  .nav-links-desktop{display:none;}
+  .hamburger{display:block;}
+  .nav-top{padding:.8rem 1rem;}
+  .hero{padding:4rem 1rem 3.5rem;}
+  .cat-bar{padding:.7rem 1rem;}
+  .srch-wrap{margin-left:0;width:100%;}
+  .srch-wrap input{width:100%;}
+  .catalog-wrap{padding:1.5rem 1rem 3rem;}
+  .look-wrap{padding:1.5rem 1rem 3rem;}
+  .about-body{padding:2.5rem 1rem;}
+  .shoe-picker{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- ── ANNOUNCEMENT ── -->
+<div class="ann">🌸 Envíos a todo Honduras &nbsp;·&nbsp; Nuevas colecciones disponibles &nbsp;·&nbsp; Pago contra entrega</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-top">
+    <a class="logo" href="#" onclick="showView('inicio');return false;">
+      <span class="logo-icon">🌸</span>
+      The <em>Macori</em> Shoes
+    </a>
+    <ul class="nav-links-desktop">
+      <li><a onclick="showView('inicio')" id="nav-inicio" class="active">Inicio</a></li>
+      <li><a onclick="showView('nosotros')" id="nav-nosotros">Nosotros</a></li>
+      <li><a onclick="showView('catalogo')" id="nav-catalogo">Catálogo</a></li>
+      <li><a onclick="showView('look')" id="nav-look">✨ Prueba tu Look</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" onclick="openCart()" aria-label="Carrito">🛒<span class="cbadge" id="cart-count">0</span></button>
+      <button class="hamburger" onclick="toggleMob()" aria-label="Menú">☰</button>
+    </div>
+  </div>
+  <div class="mob-drawer" id="mob-drawer">
+    <a onclick="showView('inicio');closeMob()">Inicio</a>
+    <a onclick="showView('nosotros');closeMob()">Nosotros</a>
+    <a onclick="showView('catalogo');closeMob()">Catálogo</a>
+    <a onclick="showView('look');closeMob()">✨ Prueba tu Look</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     VIEW: INICIO
+════════════════════════════════════════ -->
+<div class="view active" id="view-inicio">
+  <section class="hero">
+    <p class="hero-eye">Colección Primavera · Verano 2026</p>
+    <h1 class="hero-title">Cada paso,<br>una <em>historia</em><br>de elegancia.</h1>
+    <p class="hero-sub">Zapatos diseñados para mujeres que llevan su estilo con gracia y confianza.</p>
+    <button class="btn btn-primary" onclick="showView('catalogo')">Ver colección</button>
+    <button class="btn btn-ghost" onclick="showView('nosotros')">Conocernos</button>
+  </section>
+
+  <div class="strip">
+    <div class="strip-track">
+      <span class="strip-item">Envíos </span>
+      <span class="strip-item">Nuevos diseños cada semana</span>
+      <span class="strip-item">Pago contra entrega</span>
+      <span class="strip-item">Colección novia disponible</span>
+      <span class="strip-item">Tallas 5–10</span>
+      <span class="strip-item">Envíos </span>
+      <span class="strip-item">Nuevos diseños cada semana</span>
+      <span class="strip-item">Pago contra entrega</span>
+      <span class="strip-item">Colección novia disponible</span>
+      <span class="strip-item">Tallas 5–10</span>
+    </div>
+  </div>
+
+  <div style="padding:4rem 2rem 0;text-align:center;">
+    <p class="sec-label">Explora por categoría</p>
+    <h2 class="sec-title" style="font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:2rem;">Encuentra tu estilo</h2>
+  </div>
+  <div class="home-cats">
+    <div class="cat-cards">
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('tacones')">
+        <div class="cat-card-icon">👠</div>
+        <p class="cat-card-label">Tacones</p>
+        <p class="cat-card-sub">Elegancia en cada paso</p>
+      </div>
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('sandalias')">
+        <div class="cat-card-icon">👡</div>
+        <p class="cat-card-label">Sandalias</p>
+        <p class="cat-card-sub">Frescura y estilo</p>
+      </div>
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('flats')">
+        <div class="cat-card-icon">🥿</div>
+        <p class="cat-card-label">Flats</p>
+        <p class="cat-card-sub">Comodidad sin renunciar</p>
+      </div>
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('botas')">
+        <div class="cat-card-icon">🥾</div>
+        <p class="cat-card-label">Botas</p>
+        <p class="cat-card-sub">Actitud y personalidad</p>
+      </div>
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('eventos')">
+        <div class="cat-card-icon">🩰</div>
+        <p class="cat-card-label">Eventos especiales</p>
+        <p class="cat-card-sub">Tu momento inolvidable</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feat"><div class="feat-icon">🚚</div><p class="feat-title">Envío a Honduras</p><p class="feat-desc">Llevamos tus zapatos a cualquier departamento del país.</p></div>
+    <div class="feat"><div class="feat-icon">💬</div><p class="feat-title">Pedidos por WhatsApp</p><p class="feat-desc">Atención personalizada, rápida y sin complicaciones.</p></div>
+    <div class="feat"><div class="feat-icon">↩️</div><p class="feat-title">Cambios fáciles</p><p class="feat-desc">Si la talla no es la correcta, te ayudamos sin problema.</p></div>
+    <div class="feat"><div class="feat-icon">✨</div><p class="feat-title">Calidad garantizada</p><p class="feat-desc">Materiales cuidadosamente seleccionados para cada diseño.</p></div>
+    <div class="feat"><div class="feat-icon">🏧</div><p class="feat-title">Pago contra entrega</p><p class="feat-desc">Compra con total confianza y paga cuando recibes tu pedido.</p></div>
+  </div>
+
+  <div class="ig-section">
+    <h2>Síguenos en Instagram</h2>
+    <p>Mira los looks de nuestras clientas y las últimas novedades</p>
+    <a href="https://www.instagram.com/macori.shoes" target="_blank" class="ig-handle">@themacori.shoes</a>
+  </div>
+
+  <!-- FOOTER inside inicio view -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>🌺 The Macori Shoes</h4>
+        <p>Zapatos con alma, para mujeres con estilo. Honduras.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <a onclick="showView('inicio')" style="cursor:pointer;">Inicio</a>
+        <a onclick="showView('nosotros')" style="cursor:pointer;">Nosotros</a>
+        <a onclick="showView('catalogo')" style="cursor:pointer;">Catálogo</a>
+        <a onclick="showView('look')" style="cursor:pointer;">Prueba tu Look</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="https://wa.me/5049606-0472" target="_blank">💬 WhatsApp</a>
+        <a href="https://www.instagram.com/macori.shoes">📸 Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=61583667752378&locale=es_LA" target="_blank">📘 Facebook</a>
+        
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <p>Envíos a todo Honduras</p>
+        <p>Pago contra entrega</p>
+        <p>Tallas 35 – 41</p>
+        <p>Pedidos de lun a sáb</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 The Macori Shoes — Todos los derechos reservados</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/macori.shoes" target="_blank">Instagram</a>
+        <a href="https://wa.me/5049606-0472" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     VIEW: NOSOTROS
+════════════════════════════════════════ -->
+<div class="view" id="view-nosotros">
+  <div class="about-hero">
+    <h1>Nuestra Historia</h1>
+    <p>Una marca nacida del amor por la moda y el orgullo hondureño.</p>
+  </div>
+  <div class="about-body">
+    <div class="about-block">
+      <div class="about-img-ph"><img src="/Img/marca/nosotros-1.png" alt=""></div>
+      <div class="about-text">
+        <p class="tag">Nuestros orígenes</p>
+        <h2>Comenzamos con un sueño y un par de zapatos</h2>
+        <p>The Macori Shoes nació con la idea de que cada mujer merece sentirse especial desde los pies hasta la cabeza. Empezamos como un pequeño negocio familiar en Honduras, con pasión por la moda y un compromiso real con nuestras clientas.</p>
+        <p>Cada diseño que elegimos pasa por un proceso cuidadoso: buscamos estilos que combinen elegancia, comodidad y tendencia, a precios que no hagan llorar tu cartera.</p>
+      </div>
+    </div>
+    <div class="about-block rev">
+      <div class="about-img-ph"><img src="/Img/marca/nosotros-2.png" alt=""></div>
+      <div class="about-text">
+        <p class="tag">Lo que nos mueve</p>
+        <h2>Moda accesible sin sacrificar la calidad</h2>
+        <p>Creemos que la moda debe ser para todas. Por eso trabajamos para ofrecer una selección variada que va desde tacones elegantes para ocasiones especiales hasta flats cómodos para el día a día.</p>
+        <p>Nuestra clienta es una mujer segura, activa, que sabe lo que quiere. Nosotras simplemente le ayudamos a encontrarlo.</p>
+      </div>
+    </div>
+    <div class="values">
+      <div class="val-item">
+        <div class="val-icon">💖</div>
+        <p class="val-title">Pasión</p>
+        <p class="val-desc">Amamos lo que hacemos y se nota en cada producto.</p>
+      </div>
+      <div class="val-item">
+        <div class="val-icon">🤝</div>
+        <p class="val-title">Confianza</p>
+        <p class="val-desc">Atención honesta y cercana con cada clienta.</p>
+      </div>
+      <div class="val-item">
+        <div class="val-icon">✨</div>
+        <p class="val-title">Estilo</p>
+        <p class="val-desc">Seguimos las tendencias sin perder identidad propia.</p>
+      </div>
+      
+    </div>
+    <div style="text-align:center;margin-top:3rem;">
+      <button class="btn btn-primary" onclick="showView('catalogo')">Ver nuestra colección</button>
+      <a href="https://wa.me/5049606-0472" target="_blank" class="btn btn-ghost" style="text-decoration:none;">Escríbenos</a>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <p>© 2025 The Macori Shoes</p>
+      <div class="socials">
+        <a href="https://instagram.com/themacori.shoes" target="_blank">Instagram</a>
+        <a href="https://wa.me/5049606-0472" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     VIEW: CATÁLOGO
+════════════════════════════════════════ -->
+<div class="view" id="view-catalogo">
+  <div class="cat-bar">
+    <span style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-right:.3rem;">Filtrar:</span>
+    <button class="pill active" id="pill-todos" onclick="filterPill('todos',this)">Todos</button>
+    <button class="pill" id="pill-tacones" onclick="filterPill('tacones',this)">Tacones</button>
+    <button class="pill" id="pill-sandalias" onclick="filterPill('sandalias',this)">Sandalias</button>
+    <button class="pill" id="pill-flats" onclick="filterPill('flats',this)">Flats</button>
+    <button class="pill" id="pill-botas" onclick="filterPill('botas',this)">Botas</button>
+    <button class="pill" id="pill-sneakers" onclick="filterPill('sneakers',this)">Sneakers</button>
+    <button class="pill" id="pill-eventos" onclick="filterPill('eventos',this)">Eventos especiales ✨</button>
+    <button class="pill" id="pill-oferta" onclick="filterPill('oferta',this)">Oferta</button>
+    <div class="srch-wrap">
+      <span class="srch-icon">🔍</span>
+      <input type="text" placeholder="Buscar..." oninput="searchProds(this.value)">
+    </div>
+  </div>
+  <div class="catalog-wrap">
+    <div class="sec-head">
+      <h2>Colección</h2>
+      <span id="prod-count"></span>
+    </div>
+    <div class="grid" id="products-grid"></div>
+    <div class="empty-state" id="empty-state" style="display:none;">
+      <div class="eicon">🌸</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Sin resultados para ese filtro.<br>Prueba con otro.</p>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <p>© 2025 The Macori Shoes</p>
+      <div class="socials">
+        <a href="https://wa.me/5049606-0472" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     VIEW: PRUEBA TU LOOK
+════════════════════════════════════════ -->
+<div class="view" id="view-look">
+  <div class="look-wrap">
+    <div class="look-header">
+      <p class="tag">Nueva función</p>
+      <h2>Prueba tu Look 👠</h2>
+      <p>Sube tu foto, elige un zapato de nuestra colección y mira cómo combinarían juntos antes de comprar.</p>
+    </div>
+    <div class="look-layout">
+      <!-- IZQUIERDA: foto -->
+      <div class="look-left">
+        <div class="upload-zone" id="upload-zone">
+          <input type="file" accept="image/*" onchange="handlePhoto(event)">
+          <div class="uz-icon">📸</div>
+          <p class="uz-title">Sube tu foto aquí</p>
+          <p class="uz-sub">JPG, PNG · Haz clic o arrastra tu imagen</p>
+        </div>
+        <img class="preview-photo" id="preview-photo" src="" alt="Tu foto">
+        <button class="reset-btn" id="reset-btn" onclick="resetPhoto()">✕ Cambiar foto</button>
+      </div>
+      <!-- DERECHA: selector zapatos -->
+      <div class="look-right">
+        <h3>Elige un zapato</h3>
+        <div class="shoe-picker" id="shoe-picker"></div>
+        <div class="selected-shoe" id="selected-shoe">
+          <p class="ss-label">Zapato seleccionado</p>
+          <div class="ss-inner">
+            <span class="ss-emoji" id="ss-emoji"></span>
+            <div class="ss-info">
+              <p class="ss-name" id="ss-name"></p>
+              <p class="ss-price" id="ss-price"></p>
+              <p class="ss-sizes" id="ss-sizes"></p>
+            </div>
+          </div>
+          <div class="ss-actions">
+            <button class="ss-add" id="ss-add-btn">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- COMBINED LOOK -->
+    <div class="look-combo" id="look-combo">
+      <p class="combo-title">✨ Tu look completo</p>
+      <div class="combo-inner">
+        <img class="combo-photo" id="combo-photo" src="" alt="Tu foto">
+        <div class="combo-shoe-side">
+          <span class="combo-shoe-icon" id="combo-icon"></span>
+          <p class="combo-shoe-name" id="combo-name"></p>
+          <p class="combo-shoe-price" id="combo-price"></p>
+          <p class="combo-shoe-hint">¿Te convence la combinación?</p>
+          <button class="combo-add-btn" id="combo-add-btn">Sí, agregar al carrito 🛒</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <p>© 2025 The Macori Shoes</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ── PRODUCT DETAIL MODAL ── -->
+<div class="pd-modal" id="pd-modal">
+  <div class="pd-bd" onclick="closePD()"></div>
+  <div class="pd-box">
+    <!-- Galería -->
+    <div class="pd-gallery" id="pd-gallery">
+      <span class="pd-main-emoji" id="pd-main-emoji"></span>
+      <img class="pd-main-img" id="pd-main-img" src="" alt="" style="display:none;">
+      <div class="pd-thumb-row" id="pd-thumb-row"></div>
+      <button class="pd-close" onclick="closePD()">✕</button>
+    </div>
+    <!-- Info -->
+    <div class="pd-info">
+      <p class="pd-cat" id="pd-cat"></p>
+      <h2 class="pd-name" id="pd-name"></h2>
+      <p class="pd-price" id="pd-price"></p>
+
+      <!-- Colores -->
+      <div id="pd-colors-section">
+        <p class="pd-section-label">Color</p>
+        <div class="color-row" id="pd-color-row"></div>
+        <p style="font-size:.75rem;color:var(--muted);margin-top:.3rem;" id="pd-color-name"></p>
+      </div>
+
+      <!-- Tallas -->
+      <div>
+        <p class="pd-section-label">Talla</p>
+        <div class="pd-sizes-grid" id="pd-sizes-grid"></div>
+      </div>
+
+      <!-- Descripción -->
+      <p class="pd-desc" id="pd-desc"></p>
+
+      <!-- Acciones -->
+      <button class="pd-add-btn" onclick="pdAddToCart()">Agregar al carrito</button>
+      <button class="pd-look-btn" onclick="openLookWithProduct(pdProd.id)">👗 Probar con tu Look</button>
+      <button class="pd-wa-btn" onclick="pdDirectWA()">💬 Preguntar por WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── CART OVERLAY ── -->
+<div class="cart-overlay" id="cart-overlay">
+  <div class="cart-bd" onclick="closeCart()"></div>
+  <div class="cart-panel">
+    <div class="cp-head"><h2>Mi carrito</h2><button class="cp-close" onclick="closeCart()">✕</button></div>
+    <div class="cp-body" id="cp-body"></div>
+    <div class="cp-foot">
+      <div class="tot-row"><span>Total</span><span id="cart-total">L. 0.00</span></div>
+      <button class="wa-btn" onclick="sendWA()">📲 Pedir por WhatsApp</button>
+      <p class="cart-note">Te llevaremos a WhatsApp con tu pedido listo</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SIZE MODAL ── -->
+<div class="sz-modal" id="sz-modal">
+  <div class="sz-bd" onclick="closeSz()"></div>
+  <div class="sz-box">
+    <h3 id="sz-title"></h3>
+    <p>Selecciona tu talla</p>
+    <div class="sz-grid" id="sz-grid"></div>
+    <button class="sz-confirm" onclick="confirmAdd()">Agregar al carrito</button>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script>
+/* ══ CONFIG ══ */
+const WA_NUM = '504 9606-0472'; // ← Cambia este número
+
+/* ══ PRODUCTOS ══
+   Cada producto puede tener:
+   - emoji: se muestra si no hay fotos
+   - colors: array de variantes de color, cada una con:
+       name   → nombre del color (ej: 'Negro', 'Nude')
+       hex    → color del círculo swatch (ej: '#1a1a18')
+       photos → array de rutas a fotos (ej: ['img/zapatos/sandalia-negro-1.jpg', '...'])
+                Si está vacío se muestra el emoji
+   - desc: descripción corta del producto
+══ */
+/* ══ PRODUCTOS ══ */
+// Los productos se importan desde products.js
+
+/* ══ STATE ══ */
+let cart=[], selProd=null, selSize=null, catFilter='todos', srchTerm='';
+const categoryLabels = {
+  tacones:'Tacones',
+  sandalias:'Sandalias',
+  flats:'Flats',
+  botas:'Botas',
+  sneakers:'Sneakers',
+  eventos:'Eventos especiales',
+  hombre:'Hombre'
+};
+let lookPhoto=null, lookShoe=null;
+
+/* ══ NAVIGATION ══ */
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links-desktop a').forEach(a=>a.classList.remove('active'));
+  const nl=document.getElementById('nav-'+name);
+  if(nl)nl.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleMob(){document.getElementById('mob-drawer').classList.toggle('open');}
+function closeMob(){document.getElementById('mob-drawer').classList.remove('open');}
+
+/* ══ CATALOG ══ */
+function filterFromHome(cat){
+  catFilter=cat;srchTerm='';
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  const pill=document.getElementById('pill-'+cat);
+  if(pill)pill.classList.add('active');
+  else document.getElementById('pill-todos').classList.add('active');
+  applyFilters();
+}
+function filterPill(f,btn){
+  catFilter=f;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function searchProds(v){srchTerm=v;applyFilters();}
+function applyFilters(){
+  const list=products.filter(p=>{
+    const mc=catFilter==='todos'||p.cat===catFilter||(catFilter==='oferta'&&p.oldPrice);
+    const ms=!srchTerm||p.name.toLowerCase().includes(srchTerm.toLowerCase());
+    return mc&&ms;
+  });
+  renderProds(list);
+}
+function renderProds(list){
+  const g=document.getElementById('products-grid');
+  const em=document.getElementById('empty-state');
+  document.getElementById('prod-count').textContent=list.length+' producto'+(list.length!==1?'s':'');
+  if(!list.length){g.innerHTML='';em.style.display='block';return;}
+  em.style.display='none';
+  g.innerHTML=list.map(p=>{
+    // primera foto del primer color (si existe)
+    const firstPhoto = p.colors&&p.colors[0]&&p.colors[0].photos&&p.colors[0].photos[0] ? p.colors[0].photos[0] : null;
+    // swatches de colores para la tarjeta
+    const swatches = p.colors ? p.colors.map(c=>`<span title="${c.name}" style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${c.hex};border:1.5px solid rgba(0,0,0,.15);margin-right:2px;"></span>`).join('') : '';
+    return `
+    <div class="card" onclick="openPD(${p.id})" style="cursor:pointer;">
+      <div class="card-img">
+        ${firstPhoto?`<img src="${firstPhoto}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">`:p.emoji}
+        ${p.badge?`<span class="badge${p.oldPrice?' sale':''}">${p.badge}</span>`:''}
+      </div>
+      <div class="card-body">
+        <p class="card-cat">${categoryLabels[p.cat]||p.cat}</p>
+        <p class="card-name">${p.name}</p>
+        ${swatches?`<div style="margin:.3rem 0 .4rem;">${swatches}<span style="font-size:.68rem;color:var(--muted);vertical-align:middle;margin-left:2px;">${p.colors.length} color${p.colors.length>1?'es':''}</span></div>`:''}
+        <p class="card-sizes">Tallas: ${p.sizes.join(' · ')}</p>
+        <div class="card-foot">
+          <span class="card-price">
+            L. ${p.price.toLocaleString('es-HN')}
+            ${p.oldPrice?`<span class="old">L. ${p.oldPrice.toLocaleString('es-HN')}</span>`:''}
+          </span>
+          <div class="card-actions">
+            <button class="add-btn" onclick="event.stopPropagation();openPD(${p.id})">Ver</button>
+            <button class="look-btn" onclick="event.stopPropagation();openLookWithProduct(${p.id})">Probar</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ══ SIZE MODAL ══ */
+function openSz(id){
+  selProd=products.find(p=>p.id===id);selSize=null;
+  document.getElementById('sz-title').textContent=selProd.name;
+  document.getElementById('sz-grid').innerHTML=selProd.sizes.map(s=>
+    `<button class="sz-opt" onclick="pickSz(this,'${s}')">${s}</button>`
+  ).join('');
+  document.getElementById('sz-modal').classList.add('open');
+}
+function closeSz(){document.getElementById('sz-modal').classList.remove('open');selProd=null;selSize=null;}
+function pickSz(el,s){
+  document.querySelectorAll('.sz-opt').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');selSize=s;
+}
+function confirmAdd(){
+  if(!selSize){showToast('Elige una talla primero');return;}
+  addToCart(selProd,selSize);
+  closeSz();
+}
+function addToCart(prod,size){
+  const ex=cart.find(i=>i.id===prod.id&&i.size===size);
+  if(ex)ex.qty++;
+  else cart.push({...prod,size,qty:1});
+  updateCart();
+  showToast('✓ '+prod.name+' (talla '+size+') agregado');
+}
+
+/* ══ CART ══ */
+function updateCart(){
+  const tot=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const cnt=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent=cnt;
+  document.getElementById('cart-total').textContent='L. '+tot.toLocaleString('es-HN',{minimumFractionDigits:2});
+}
+function renderCart(){
+  const b=document.getElementById('cp-body');
+  if(!cart.length){b.innerHTML='<div class="cp-empty">🌸<br><br>Tu carrito está vacío</div>';return;}
+  b.innerHTML=cart.map(i=>`
+    <div class="ci">
+      <div class="ci-img">${i.emoji||'👠'}</div>
+      <div class="ci-info">
+        <p class="ci-name">${i.name}</p>
+        <p class="ci-size">${i.color?'Color: '+i.color+' · ':''}Talla ${i.size}</p>
+        <p class="ci-price">L. ${(i.price*i.qty).toLocaleString('es-HN')}</p>
+        <div class="qrow">
+          <button class="qb" onclick="chQty(${i.id},'${i.size}',-1)">−</button>
+          <span class="qv">${i.qty}</span>
+          <button class="qb" onclick="chQty(${i.id},'${i.size}',1)">+</button>
+        </div>
+      </div>
+      <button class="ci-rm" onclick="rmItem(${i.id},'${i.size}')">✕</button>
+    </div>
+  `).join('');
+}
+function rmItem(id,sz){cart=cart.filter(i=>!(i.id===id&&i.size===sz));updateCart();renderCart();}
+function chQty(id,sz,d){
+  const i=cart.find(i=>i.id===id&&i.size===sz);if(!i)return;
+  i.qty+=d;if(i.qty<=0)rmItem(id,sz);else{updateCart();renderCart();}
+}
+function openCart(){renderCart();document.getElementById('cart-overlay').style.display='block';}
+function closeCart(){document.getElementById('cart-overlay').style.display='none';}
+function sendWA(){
+  if(!cart.length){showToast('Tu carrito está vacío');return;}
+  const tot=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  let msg='¡Hola! 🌸 Quiero hacer un pedido de *The Macori Shoes*:\n\n';
+  cart.forEach(i=>{msg+=`👠 ${i.name}${i.color?' ('+i.color+')':''} — Talla ${i.size} x${i.qty} = L. ${(i.price*i.qty).toLocaleString('es-HN')}\n`;});
+  msg+=`\n*Total: L. ${tot.toLocaleString('es-HN',{minimumFractionDigits:2})}*\n\n¿Pueden confirmar disponibilidad? Gracias 🙏`;
+  window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ══ PRUEBA TU LOOK ══ */
+function handlePhoto(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const src=ev.target.result;
+    document.getElementById('preview-photo').src=src;
+    document.getElementById('preview-photo').classList.add('show');
+    document.getElementById('upload-zone').style.display='none';
+    document.getElementById('reset-btn').classList.add('show');
+    lookPhoto=src;
+    updateCombo();
+  };
+  reader.readAsDataURL(file);
+}
+function resetPhoto(){
+  lookPhoto=null;
+  document.getElementById('preview-photo').classList.remove('show');
+  document.getElementById('preview-photo').src='';
+  document.getElementById('upload-zone').style.display='block';
+  document.getElementById('reset-btn').classList.remove('show');
+  document.getElementById('look-combo').classList.remove('show');
+}
+function renderShoePicker(){
+  const sp=document.getElementById('shoe-picker');
+  sp.innerHTML=products.map(p=>`
+    <div class="shoe-opt" id="sopt-${p.id}" onclick="pickShoe(${p.id})">
+      <span class="sicon">${p.emoji}</span>
+      <p class="sname">${p.name}</p>
+      <p class="sprice">L.${p.price.toLocaleString('es-HN')}</p>
+    </div>
+  `).join('');
+}
+function pickShoe(id){
+  lookShoe=products.find(p=>p.id===id);
+  document.querySelectorAll('.shoe-opt').forEach(e=>e.classList.remove('picked'));
+  const el=document.getElementById('sopt-'+id);
+  if(el) el.classList.add('picked');
+  // update right panel
+  document.getElementById('ss-emoji').textContent=lookShoe.emoji;
+  document.getElementById('ss-name').textContent=lookShoe.name;
+  document.getElementById('ss-price').textContent='L. '+lookShoe.price.toLocaleString('es-HN');
+  document.getElementById('ss-sizes').textContent='Tallas: '+lookShoe.sizes.join(', ');
+  document.getElementById('selected-shoe').classList.add('show');
+  document.getElementById('ss-add-btn').onclick=()=>openSz(lookShoe.id);
+  updateCombo();
+}
+function openLookWithProduct(id){
+  closePD();
+  showView('look');
+  pickShoe(id);
+  document.getElementById('look-combo').classList.toggle('show', lookPhoto && !!lookShoe);
+}
+function updateCombo(){
+  if(!lookPhoto||!lookShoe)return;
+  document.getElementById('combo-photo').src=lookPhoto;
+  document.getElementById('combo-icon').textContent=lookShoe.emoji;
+  document.getElementById('combo-name').textContent=lookShoe.name;
+  document.getElementById('combo-price').textContent='L. '+lookShoe.price.toLocaleString('es-HN');
+  document.getElementById('combo-add-btn').onclick=()=>openSz(lookShoe.id);
+  document.getElementById('look-combo').classList.add('show');
+}
+
+/* ══ PRODUCT DETAIL MODAL ══ */
+let pdProd=null, pdColor=null, pdSize=null;
+
+function openPD(id){
+  pdProd=products.find(p=>p.id===id);
+  pdColor=pdProd.colors&&pdProd.colors.length ? pdProd.colors[0] : null;
+  pdSize=null;
+  // fill static fields
+  document.getElementById('pd-cat').textContent=categoryLabels[pdProd.cat]||pdProd.cat;
+  document.getElementById('pd-name').textContent=pdProd.name;
+  document.getElementById('pd-desc').textContent=pdProd.desc||'';
+  let priceHTML='L. '+pdProd.price.toLocaleString('es-HN');
+  if(pdProd.oldPrice) priceHTML+=' <span class="pd-old">L. '+pdProd.oldPrice.toLocaleString('es-HN')+'</span>';
+  document.getElementById('pd-price').innerHTML=priceHTML;
+  // sizes
+  document.getElementById('pd-sizes-grid').innerHTML=pdProd.sizes.map(s=>
+    `<button class="pd-sz" onclick="pdPickSize(this,'${s}')">${s}</button>`
+  ).join('');
+  // colors
+  const colorSection=document.getElementById('pd-colors-section');
+  if(pdProd.colors&&pdProd.colors.length){
+    colorSection.style.display='block';
+    renderPDColors();
+    pdSetColor(pdProd.colors[0],0);
+  } else {
+    colorSection.style.display='none';
+    // just show emoji
+    document.getElementById('pd-main-emoji').style.display='block';
+    document.getElementById('pd-main-emoji').textContent=pdProd.emoji||'👠';
+    document.getElementById('pd-main-img').style.display='none';
+    document.getElementById('pd-thumb-row').innerHTML='';
+  }
+  document.getElementById('pd-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closePD(){
+  document.getElementById('pd-modal').classList.remove('open');
+  document.body.style.overflow='';
+  pdProd=null;pdColor=null;pdSize=null;
+}
+
+function renderPDColors(){
+  if(!pdProd||!pdProd.colors)return;
+  document.getElementById('pd-color-row').innerHTML=pdProd.colors.map((c,i)=>
+    `<span class="color-swatch${i===0?' active':''}" style="background:${c.hex};" title="${c.name}" onclick="pdSetColor(pdProd.colors[${i}],${i})"></span>`
+  ).join('');
+}
+
+function pdSetColor(color,idx){
+  pdColor=color;
+  // swatches active state
+  document.querySelectorAll('.color-swatch').forEach((s,i)=>s.classList.toggle('active',i===idx));
+  document.getElementById('pd-color-name').textContent=color.name;
+  // gallery
+  const hasPhotos=color.photos&&color.photos.length;
+  const mainImg=document.getElementById('pd-main-img');
+  const mainEmoji=document.getElementById('pd-main-emoji');
+  if(hasPhotos){
+    mainImg.src=color.photos[0];
+    mainImg.style.display='block';
+    mainEmoji.style.display='none';
+    // thumbnails
+    document.getElementById('pd-thumb-row').innerHTML=color.photos.map((ph,i)=>
+      `<div class="pd-thumb${i===0?' active':''}" onclick="pdSetMainPhoto('${ph}',this)"><img src="${ph}" alt="" onerror="this.parentElement.style.display='none'"></div>`
+    ).join('');
+  } else {
+    mainImg.style.display='none';
+    mainEmoji.style.display='block';
+    mainEmoji.textContent=pdProd.emoji||'👠';
+    document.getElementById('pd-thumb-row').innerHTML='';
+  }
+}
+
+function pdSetMainPhoto(src,thumbEl){
+  document.getElementById('pd-main-img').src=src;
+  document.querySelectorAll('.pd-thumb').forEach(t=>t.classList.remove('active'));
+  thumbEl.classList.add('active');
+}
+
+function pdPickSize(el,s){
+  document.querySelectorAll('.pd-sz').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');pdSize=s;
+}
+
+function pdAddToCart(){
+  if(!pdSize){showToast('Elige una talla primero');return;}
+  if(!pdColor&&pdProd.colors&&pdProd.colors.length){showToast('Elige un color primero');return;}
+  const colorLabel=pdColor?pdColor.name:null;
+  const ex=cart.find(i=>i.id===pdProd.id&&i.size===pdSize&&i.color===colorLabel);
+  if(ex)ex.qty++;
+  else cart.push({...pdProd,size:pdSize,color:colorLabel,qty:1});
+  updateCart();
+  showToast('✓ '+pdProd.name+(colorLabel?' — '+colorLabel:'')+(pdSize?' talla '+pdSize:'')+' agregado');
+  closePD();
+}
+
+function pdDirectWA(){
+  const colorLabel=pdColor?pdColor.name:'';
+  let msg='¡Hola! 🌸 Me interesa este zapato de *The Macori Shoes*:\n\n';
+  msg+=`👠 *${pdProd.name}*\n`;
+  if(colorLabel)msg+=`Color: ${colorLabel}\n`;
+  msg+=`Precio: L. ${pdProd.price.toLocaleString('es-HN')}\n\n¿Está disponible? ¿Cuáles tallas tienen? 🙏`;
+  window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ══ TOAST ══ */
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+/* ══ INIT ══ */
+renderProds(products);
+renderShoePicker();
+</script>
+</body>
+</html>
