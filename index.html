@@ -103,24 +103,29 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 /* ════════════════════════════════
    VIEW: NOSOTROS
 ════════════════════════════════ */
-.about-hero{background:var(--dark);color:#fff;padding:5rem 2rem;text-align:center;}
-.about-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:.8rem;}
-.about-hero p{color:var(--blush);font-size:1rem;max-width:500px;margin:0 auto;}
-.about-body{max-width:800px;margin:0 auto;padding:4rem 2rem;}
-.about-block{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:4rem;}
+.about-hero{background:var(--dark);color:#fff;padding:5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.about-hero::before{content:'🌸';position:absolute;font-size:9rem;opacity:.06;top:-2rem;left:-1.5rem;transform:rotate(-15deg);}
+.about-hero::after{content:'🌸';position:absolute;font-size:7rem;opacity:.06;bottom:-2.5rem;right:-1rem;transform:rotate(20deg);}
+.about-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:.8rem;position:relative;}
+.about-hero p{color:var(--blush);font-size:1rem;max-width:500px;margin:0 auto;position:relative;}
+.about-body{max-width:840px;margin:0 auto;padding:4.5rem 2rem;}
+.about-block{display:grid;grid-template-columns:1fr 1fr;gap:3.2rem;align-items:center;margin-bottom:5rem;}
 .about-block.rev{direction:rtl;}
 .about-block.rev > *{direction:ltr;}
-.about-img-ph{height:340px;background:var(--papery);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:5rem;border:1px solid var(--border);overflow:hidden;}
-.about-img-ph img{width:100%;height:100%;object-fit:cover;display:block;}
-.about-text .tag{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.6rem;}
-.about-text h2{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:.8rem;line-height:1.2;}
+.about-img-ph{height:360px;background:var(--papery);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:5rem;border:1px solid var(--border);overflow:hidden;box-shadow:0 16px 36px -14px rgba(160,32,96,.3);transition:transform .35s ease,box-shadow .35s ease;}
+.about-img-ph:hover{transform:translateY(-5px);box-shadow:0 22px 44px -16px rgba(160,32,96,.4);}
+.about-img-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.about-img-ph:hover img{transform:scale(1.05);}
+.about-text .tag{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fus);font-weight:600;margin-bottom:.6rem;}
+.about-text h2{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:.9rem;line-height:1.25;}
 .about-text p{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:.8rem;}
-.values{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.2rem;background:var(--papery);padding:2.5rem;border-radius:4px;border:1px solid var(--border);}
-.val-item{text-align:center;}
-.val-icon{font-size:1.8rem;margin-bottom:.4rem;}
-.val-title{font-weight:600;font-size:.85rem;color:var(--mag);margin-bottom:.2rem;}
+.values{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.4rem;background:linear-gradient(180deg,var(--papery),var(--cream));padding:3rem 2.5rem;border-radius:18px;border:1px solid var(--border);}
+.val-item{text-align:center;background:#fff;padding:1.6rem 1.2rem;border-radius:14px;box-shadow:0 10px 26px -14px rgba(160,32,96,.28);transition:transform .3s ease,box-shadow .3s ease;}
+.val-item:hover{transform:translateY(-4px);box-shadow:0 16px 32px -14px rgba(160,32,96,.38);}
+.val-icon{font-size:1.9rem;margin-bottom:.5rem;}
+.val-title{font-weight:600;font-size:.85rem;color:var(--mag);margin-bottom:.3rem;}
 .val-desc{font-size:.75rem;color:var(--muted);line-height:1.5;}
-@media(max-width:640px){.about-block{grid-template-columns:1fr;gap:1.5rem;}.about-block.rev{direction:ltr;}}
+@media(max-width:640px){.about-block{grid-template-columns:1fr;gap:1.5rem;}.about-block.rev{direction:ltr;}.about-img-ph{height:280px;}}
 
 /* ════════════════════════════════
    VIEW: CATÁLOGO
@@ -159,7 +164,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .empty-state .eicon{font-size:3rem;margin-bottom:1rem;}
 
 /* ════════════════════════════════
-   VIEW: PRUEBA TU LOOK
+   VIEW: PEDIDOS ESPECIALES
 ════════════════════════════════ */
 .look-wrap{padding:2.5rem 2rem 4rem;max-width:1100px;margin:0 auto;flex:1;}
 .look-header{text-align:center;margin-bottom:2.5rem;}
@@ -185,46 +190,29 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .reset-btn{display:none;margin-top:.6rem;background:none;border:1px solid var(--border);color:var(--muted);border-radius:2rem;padding:.35rem .9rem;font-size:.75rem;cursor:pointer;font-family:'Inter',sans-serif;}
 .reset-btn:hover{border-color:var(--rose);color:var(--mag);}
 .reset-btn.show{display:block;}
-/* RIGHT: shoe picker + selected preview */
+/* RIGHT: formulario de pedido especial */
 .look-right{}
 .look-right h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.8rem;color:var(--dark);}
-.shoe-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;max-height:320px;overflow-y:auto;padding-right:.3rem;}
-.shoe-picker::-webkit-scrollbar{width:4px;}
-.shoe-picker::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-.shoe-opt{border:2px solid var(--border);border-radius:4px;padding:.6rem;text-align:center;cursor:pointer;transition:all .15s;background:var(--papery);}
-.shoe-opt:hover{border-color:var(--rose);}
-.shoe-opt.picked{border-color:var(--mag);background:var(--papery);}
-.shoe-opt .sicon{font-size:2rem;display:block;margin-bottom:.3rem;}
-.shoe-opt .sname{font-size:.68rem;color:var(--dark);font-weight:500;line-height:1.3;}
-.shoe-opt .sprice{font-size:.65rem;color:var(--mag);font-weight:700;margin-top:.1rem;}
-.selected-shoe{margin-top:1.2rem;padding:1rem;background:var(--white);border:1px solid var(--border);border-radius:4px;display:none;}
-.selected-shoe.show{display:block;}
-.ss-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.5rem;}
-.ss-inner{display:flex;align-items:center;gap:.8rem;}
-.ss-emoji{font-size:2.8rem;}
-.ss-info{}
-.ss-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--dark);}
-.ss-price{font-size:.9rem;font-weight:700;color:var(--mag);margin-top:.1rem;}
-.ss-actions{display:flex;gap:.5rem;margin-top:.8rem;}
-.ss-add{background:var(--mag);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:2px;font-size:.75rem;font-weight:500;cursor:pointer;letter-spacing:.05em;font-family:'Inter',sans-serif;}
-.ss-add:hover{background:var(--dark);}
-.ss-sizes{font-size:.72rem;color:var(--muted);margin-top:.4rem;}
-/* bottom: combined look */
-.look-combo{margin-top:2rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:6px;display:none;}
-.look-combo.show{display:block;}
-.combo-title{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1rem;color:var(--dark);text-align:center;}
-.combo-inner{display:flex;align-items:flex-start;justify-content:center;gap:2rem;flex-wrap:wrap;}
-.combo-photo{width:220px;border-radius:4px;border:1px solid var(--border);object-fit:contain;max-height:280px;background:var(--papery);}
-.combo-shoe-side{text-align:center;}
-.combo-shoe-icon{font-size:5rem;display:block;margin-bottom:.4rem;}
-.combo-shoe-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);}
-.combo-shoe-price{font-size:.9rem;color:var(--mag);font-weight:700;margin-top:.2rem;}
-.combo-shoe-hint{font-size:.75rem;color:var(--muted);margin-top:.3rem;}
-.combo-add-btn{display:inline-block;margin-top:.8rem;background:var(--mag);color:#fff;border:none;padding:.55rem 1.3rem;border-radius:2px;font-size:.78rem;font-weight:500;cursor:pointer;letter-spacing:.05em;font-family:'Inter',sans-serif;}
-.combo-add-btn:hover{background:var(--dark);}
+.form-field{margin-bottom:1rem;}
+.form-field label{display:block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.4rem;}
+.form-field input,.form-field textarea,.form-field select{
+  width:100%;padding:.62rem .8rem;border:1px solid var(--border);border-radius:4px;
+  font-size:.85rem;font-family:'Inter',sans-serif;color:var(--dark);background:var(--white);outline:none;resize:vertical;transition:border-color .15s;
+}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--rose);}
+.form-field textarea{min-height:88px;}
+.form-hint{font-size:.7rem;color:var(--muted);margin-top:.4rem;line-height:1.5;}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.budget-chips{display:flex;gap:.5rem;flex-wrap:wrap;}
+.bchip{padding:.45rem .9rem;border:1px solid var(--border);border-radius:2rem;font-size:.75rem;font-weight:500;color:var(--dark);cursor:pointer;background:none;font-family:'Inter',sans-serif;transition:all .15s;}
+.bchip:hover{border-color:var(--rose);}
+.bchip.sel{background:var(--mag);color:#fff;border-color:var(--mag);}
+.special-submit{width:100%;margin-top:.4rem;background:var(--mag);color:#fff;border:none;padding:.85rem;border-radius:2px;font-size:.85rem;font-weight:600;cursor:pointer;letter-spacing:.05em;font-family:'Inter',sans-serif;transition:background .15s;}
+.special-submit:hover{background:var(--dark);}
+.special-note{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.7rem;line-height:1.6;}
 @media(max-width:720px){
   .look-layout{grid-template-columns:1fr;}
-  .shoe-picker{grid-template-columns:repeat(4,1fr);max-height:none;}
+  .form-row2{grid-template-columns:1fr;}
 }
 
 /* ════════════════════════════════
@@ -365,7 +353,6 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
   .catalog-wrap{padding:1.5rem 1rem 3rem;}
   .look-wrap{padding:1.5rem 1rem 3rem;}
   .about-body{padding:2.5rem 1rem;}
-  .shoe-picker{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
@@ -383,9 +370,9 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     </a>
     <ul class="nav-links-desktop">
       <li><a onclick="showView('inicio')" id="nav-inicio" class="active">Inicio</a></li>
-      <li><a onclick="showView('nosotros')" id="nav-nosotros">Nosotros</a></li>
       <li><a onclick="showView('catalogo')" id="nav-catalogo">Catálogo</a></li>
-      <li><a onclick="showView('look')" id="nav-look">✨ Prueba tu Look</a></li>
+      <li><a onclick="showView('look')" id="nav-look">🎁 Pedidos Especiales</a></li>
+      <li><a onclick="showView('nosotros')" id="nav-nosotros">Nosotros</a></li>
     </ul>
     <div class="nav-right">
       <button class="icon-btn" onclick="openCart()" aria-label="Carrito">🛒<span class="cbadge" id="cart-count">0</span></button>
@@ -394,9 +381,9 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
   </div>
   <div class="mob-drawer" id="mob-drawer">
     <a onclick="showView('inicio');closeMob()">Inicio</a>
-    <a onclick="showView('nosotros');closeMob()">Nosotros</a>
     <a onclick="showView('catalogo');closeMob()">Catálogo</a>
-    <a onclick="showView('look');closeMob()">✨ Prueba tu Look</a>
+    <a onclick="showView('look');closeMob()">🎁 Pedidos Especiales</a>
+    <a onclick="showView('nosotros');closeMob()">Nosotros</a>
   </div>
 </nav>
 
@@ -485,9 +472,9 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       <div class="footer-col">
         <h4>Navegación</h4>
         <a onclick="showView('inicio')" style="cursor:pointer;">Inicio</a>
-        <a onclick="showView('nosotros')" style="cursor:pointer;">Nosotros</a>
         <a onclick="showView('catalogo')" style="cursor:pointer;">Catálogo</a>
-        <a onclick="showView('look')" style="cursor:pointer;">Prueba tu Look</a>
+        <a onclick="showView('look')" style="cursor:pointer;">Pedidos Especiales</a>
+        <a onclick="showView('nosotros')" style="cursor:pointer;">Nosotros</a>
       </div>
       <div class="footer-col">
         <h4>Contacto</h4>
@@ -524,7 +511,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
   </div>
   <div class="about-body">
     <div class="about-block">
-      <div class="about-img-ph"><img src="/Img/marca/nosotros-1.png" alt=""></div>
+      <div class="about-img-ph"><img src="Img/marca/nosotros-1.png" alt=""></div>
       <div class="about-text">
         <p class="tag">Nuestros orígenes</p>
         <h2>Comenzamos con un sueño y un par de zapatos</h2>
@@ -533,7 +520,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       </div>
     </div>
     <div class="about-block rev">
-      <div class="about-img-ph"><img src="/Img/marca/nosotros-2.png" alt=""></div>
+      <div class="about-img-ph"><img src="Img/marca/nosotros-2.png" alt=""></div>
       <div class="about-text">
         <p class="tag">Lo que nos mueve</p>
         <h2>Moda accesible sin sacrificar la calidad</h2>
@@ -557,7 +544,6 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
         <p class="val-title">Estilo</p>
         <p class="val-desc">Seguimos las tendencias sin perder identidad propia.</p>
       </div>
-      
     </div>
     <div style="text-align:center;margin-top:3rem;">
       <button class="btn btn-primary" onclick="showView('catalogo')">Ver nuestra colección</button>
@@ -616,59 +602,75 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 </div>
 
 <!-- ════════════════════════════════════════
-     VIEW: PRUEBA TU LOOK
+     VIEW: PEDIDOS ESPECIALES
 ════════════════════════════════════════ -->
 <div class="view" id="view-look">
   <div class="look-wrap">
     <div class="look-header">
-      <p class="tag">Nueva función</p>
-      <h2>Prueba tu Look 👠</h2>
-      <p>Sube tu foto, elige un zapato de nuestra colección y mira cómo combinarían juntos antes de comprar.</p>
+      <p class="tag">Pedido especial</p>
+      <h2>Pedidos Especiales 🎁</h2>
+      <p>¿Viste un modelo en otro lado y quieres saber si lo tenemos? Envíanos una foto de referencia y tu talla — te cotizamos por WhatsApp.</p>
     </div>
     <div class="look-layout">
-      <!-- IZQUIERDA: foto -->
+      <!-- IZQUIERDA: foto de referencia -->
       <div class="look-left">
+        <h3>Imagen de referencia</h3>
         <div class="upload-zone" id="upload-zone">
           <input type="file" accept="image/*" onchange="handlePhoto(event)">
           <div class="uz-icon">📸</div>
-          <p class="uz-title">Sube tu foto aquí</p>
+          <p class="uz-title">Sube tu imagen de referencia</p>
           <p class="uz-sub">JPG, PNG · Haz clic o arrastra tu imagen</p>
         </div>
-        <img class="preview-photo" id="preview-photo" src="" alt="Tu foto">
-        <button class="reset-btn" id="reset-btn" onclick="resetPhoto()">✕ Cambiar foto</button>
+        <img class="preview-photo" id="preview-photo" src="" alt="Referencia">
+        <button class="reset-btn" id="reset-btn" onclick="resetPhoto()">✕ Cambiar imagen</button>
       </div>
-      <!-- DERECHA: selector zapatos -->
+      <!-- DERECHA: formulario de pedido especial -->
       <div class="look-right">
-        <h3>Elige un zapato</h3>
-        <div class="shoe-picker" id="shoe-picker"></div>
-        <div class="selected-shoe" id="selected-shoe">
-          <p class="ss-label">Zapato seleccionado</p>
-          <div class="ss-inner">
-            <span class="ss-emoji" id="ss-emoji"></span>
-            <div class="ss-info">
-              <p class="ss-name" id="ss-name"></p>
-              <p class="ss-price" id="ss-price"></p>
-              <p class="ss-sizes" id="ss-sizes"></p>
-            </div>
+        <h3>Datos de tu pedido</h3>
+        <div class="form-field">
+          <label for="sp-name">Nombre completo</label>
+          <input type="text" id="sp-name" placeholder="Ej: María López">
+        </div>
+        <div class="form-row2">
+          <div class="form-field">
+            <label for="sp-phone">Número de teléfono</label>
+            <input type="tel" id="sp-phone" placeholder="Ej: 9999-9999">
           </div>
-          <div class="ss-actions">
-            <button class="ss-add" id="ss-add-btn">Agregar al carrito</button>
+          <div class="form-field">
+            <label for="sp-category">Tipo de zapato</label>
+            <select id="sp-category">
+              <option value="Tacones">Tacones</option>
+              <option value="Sandalias">Sandalias</option>
+              <option value="Flats">Flats</option>
+              <option value="Botas">Botas</option>
+              <option value="Sneakers">Sneakers</option>
+              <option value="Eventos especiales">Eventos especiales</option>
+              <option value="No estoy segura/o">No estoy segura/o</option>
+            </select>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- COMBINED LOOK -->
-    <div class="look-combo" id="look-combo">
-      <p class="combo-title">✨ Tu look completo</p>
-      <div class="combo-inner">
-        <img class="combo-photo" id="combo-photo" src="" alt="Tu foto">
-        <div class="combo-shoe-side">
-          <span class="combo-shoe-icon" id="combo-icon"></span>
-          <p class="combo-shoe-name" id="combo-name"></p>
-          <p class="combo-shoe-price" id="combo-price"></p>
-          <p class="combo-shoe-hint">¿Te convence la combinación?</p>
-          <button class="combo-add-btn" id="combo-add-btn">Sí, agregar al carrito 🛒</button>
+        <div class="form-field">
+          <label>Talla</label>
+          <div class="pd-sizes-grid" id="sp-sizes-grid"></div>
+          <p class="form-hint">Selecciona tu talla habitual — la confirmamos según disponibilidad del modelo.</p>
         </div>
+        <div class="form-field">
+          <label>Presupuesto estimado</label>
+          <div class="budget-chips" id="budget-chips">
+            <button type="button" class="bchip" onclick="pickBudget(this,'Menos de L. 700')">Menos de L. 700</button>
+            <button type="button" class="bchip" onclick="pickBudget(this,'L. 700-1200')">L. 700-1200</button>
+            <button type="button" class="bchip" onclick="pickBudget(this,'L. 1200-1800')">L. 1200-1800</button>
+            <button type="button" class="bchip" onclick="pickBudget(this,'Más de L. 1800')">Más de L. 1800</button>
+            <button type="button" class="bchip" onclick="pickBudget(this,'No estoy segura/o')">No estoy segura/o</button>
+          </div>
+          <p class="form-hint">Esto nos ayuda a darte una cotización ajustada. El precio final se confirma por WhatsApp.</p>
+        </div>
+        <div class="form-field">
+          <label for="sp-comments">Comentarios</label>
+          <textarea id="sp-comments" placeholder="Cuéntanos el modelo, color o cualquier detalle que nos ayude a encontrarlo o hacerlo para ti."></textarea>
+        </div>
+        <button class="special-submit" onclick="sendSpecialOrder()">📲 Enviar pedido por WhatsApp</button>
+        <p class="special-note">Nos pondremos en contacto contigo por WhatsApp para confirmar disponibilidad, talla y precio.</p>
       </div>
     </div>
   </div>
@@ -714,7 +716,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 
       <!-- Acciones -->
       <button class="pd-add-btn" onclick="pdAddToCart()">Agregar al carrito</button>
-      <button class="pd-look-btn" onclick="openLookWithProduct(pdProd.id)">👗 Probar con tu Look</button>
+      <button class="pd-look-btn" onclick="openLookWithProduct(pdProd.id)">🎁 Pedir este modelo</button>
       <button class="pd-wa-btn" onclick="pdDirectWA()">💬 Preguntar por WhatsApp</button>
     </div>
   </div>
@@ -754,10 +756,10 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 const WA_NUM = '504 9606-0472'; // ← Cambia este número
 
 // #EDITAR — GOOGLE SHEET DE PRODUCTOS (opcional)
-// Pega aquí el link de "Publicar en la web" de tu Google Sheet en formato CSV
-// (Archivo → Compartir → Publicar en la web → CSV). Si lo dejas vacío, o si el
-// Sheet no carga, se usan los productos de siempre de products.js.
-const SHEET_CSV_URL = '';
+// Enlace de exportación CSV del Sheet de productos (requiere que el Sheet esté
+// compartido como "Cualquier persona con el enlace puede ver"). Si lo dejas
+// vacío, o si el Sheet no carga, se usan los productos de siempre de products.js.
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1yrH7nmsqR3RMSypXARphKJ4TWv3LP5tHABI41XD5sh0/export?format=csv';
 
 /* ══ PRODUCTOS ══
    Cada producto puede tener:
@@ -783,7 +785,9 @@ const categoryLabels = {
   eventos:'Eventos especiales',
   hombre:'Hombre'
 };
-let lookPhoto=null, lookShoe=null;
+let lookPhoto=null, selectedBudget=null, selectedOrderSize=null;
+// #EDITAR — Tallas disponibles para el formulario de Pedidos Especiales
+const SHOE_SIZES=['5','5.5','6','6.5','7','7.5','8','8.5','9','10'];
 
 /* ══ NAVIGATION ══ */
 function showView(name){
@@ -850,7 +854,7 @@ function renderProds(list){
           </span>
           <div class="card-actions">
             <button class="add-btn" onclick="event.stopPropagation();openPD(${p.id})">Ver</button>
-            <button class="look-btn" onclick="event.stopPropagation();openLookWithProduct(${p.id})">Probar</button>
+            <button class="look-btn" onclick="event.stopPropagation();openLookWithProduct(${p.id})">Consultar</button>
           </div>
         </div>
       </div>
@@ -928,7 +932,7 @@ function sendWA(){
   window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');
 }
 
-/* ══ PRUEBA TU LOOK ══ */
+/* ══ PEDIDOS ESPECIALES ══ */
 function handlePhoto(e){
   const file=e.target.files[0];if(!file)return;
   const reader=new FileReader();
@@ -939,7 +943,6 @@ function handlePhoto(e){
     document.getElementById('upload-zone').style.display='none';
     document.getElementById('reset-btn').classList.add('show');
     lookPhoto=src;
-    updateCombo();
   };
   reader.readAsDataURL(file);
 }
@@ -949,46 +952,67 @@ function resetPhoto(){
   document.getElementById('preview-photo').src='';
   document.getElementById('upload-zone').style.display='block';
   document.getElementById('reset-btn').classList.remove('show');
-  document.getElementById('look-combo').classList.remove('show');
 }
-function renderShoePicker(){
-  const sp=document.getElementById('shoe-picker');
-  sp.innerHTML=products.map(p=>`
-    <div class="shoe-opt" id="sopt-${p.id}" onclick="pickShoe(${p.id})">
-      <span class="sicon">${p.emoji}</span>
-      <p class="sname">${p.name}</p>
-      <p class="sprice">L.${p.price.toLocaleString('es-HN')}</p>
-    </div>
-  `).join('');
+function renderSpecialSizes(){
+  const grid=document.getElementById('sp-sizes-grid');
+  if(!grid) return;
+  grid.innerHTML=SHOE_SIZES.map(s=>`<button type="button" class="pd-sz" onclick="pickOrderSize(this,'${s}')">${s}</button>`).join('');
 }
-function pickShoe(id){
-  lookShoe=products.find(p=>p.id===id);
-  document.querySelectorAll('.shoe-opt').forEach(e=>e.classList.remove('picked'));
-  const el=document.getElementById('sopt-'+id);
-  if(el) el.classList.add('picked');
-  // update right panel
-  document.getElementById('ss-emoji').textContent=lookShoe.emoji;
-  document.getElementById('ss-name').textContent=lookShoe.name;
-  document.getElementById('ss-price').textContent='L. '+lookShoe.price.toLocaleString('es-HN');
-  document.getElementById('ss-sizes').textContent='Tallas: '+lookShoe.sizes.join(', ');
-  document.getElementById('selected-shoe').classList.add('show');
-  document.getElementById('ss-add-btn').onclick=()=>openSz(lookShoe.id);
-  updateCombo();
+function pickOrderSize(el,s){
+  document.querySelectorAll('#sp-sizes-grid .pd-sz').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedOrderSize=s;
+}
+function pickBudget(el,label){
+  document.querySelectorAll('.bchip').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedBudget=label;
 }
 function openLookWithProduct(id){
   closePD();
   showView('look');
-  pickShoe(id);
-  document.getElementById('look-combo').classList.toggle('show', lookPhoto && !!lookShoe);
+  const prod=products.find(p=>p.id===id);
+  if(prod){
+    // La categoría real del producto (categoryLabels) rara vez coincide literal
+    // con las opciones del select, así que se busca la mejor coincidencia y si
+    // no hay ninguna, se cae a la última opción ("No estoy segura/o").
+    const sel=document.getElementById('sp-category');
+    const label=(categoryLabels[prod.cat]||prod.cat||'').toLowerCase();
+    const opts=Array.from(sel.options).map(o=>o.value);
+    const match=opts.find(o=>o.toLowerCase()===label)
+      || opts.find(o=>label && (o.toLowerCase().includes(label)||label.includes(o.toLowerCase())));
+    sel.value=match||opts[opts.length-1]||'';
+    const c=document.getElementById('sp-comments');
+    if(!c.value) c.value='Me interesa el modelo "'+prod.name+'". ¿Lo tienen disponible?';
+  }
 }
-function updateCombo(){
-  if(!lookPhoto||!lookShoe)return;
-  document.getElementById('combo-photo').src=lookPhoto;
-  document.getElementById('combo-icon').textContent=lookShoe.emoji;
-  document.getElementById('combo-name').textContent=lookShoe.name;
-  document.getElementById('combo-price').textContent='L. '+lookShoe.price.toLocaleString('es-HN');
-  document.getElementById('combo-add-btn').onclick=()=>openSz(lookShoe.id);
-  document.getElementById('look-combo').classList.add('show');
+function sendSpecialOrder(){
+  const name=document.getElementById('sp-name').value.trim();
+  const phone=document.getElementById('sp-phone').value.trim();
+  const category=document.getElementById('sp-category').value;
+  const comments=document.getElementById('sp-comments').value.trim();
+
+  if(!name||!phone){
+    showToast('Completa tu nombre y teléfono primero');
+    return;
+  }
+  if(!lookPhoto){
+    showToast('Sube una imagen de referencia primero');
+    return;
+  }
+
+  let msg='Hola, quiero un pedido especial en The Macori Shoes:\n\n';
+  msg+=`👤 Nombre: ${name}\n`;
+  msg+=`📞 Teléfono: ${phone}\n`;
+  msg+=`🏷️ Tipo: ${category}\n`;
+  if(selectedOrderSize) msg+=`📏 Talla: ${selectedOrderSize}\n`;
+  if(selectedBudget) msg+=`💰 Presupuesto estimado: ${selectedBudget}\n`;
+  if(comments) msg+=`📝 Comentarios: ${comments}\n`;
+  msg+='\n📸 Adjunto una imagen de referencia (la enviaré en este chat).\n';
+  msg+='\n¿Podrían confirmarme disponibilidad? Gracias 🙏';
+
+  window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');
+  showToast('✓ Te llevamos a WhatsApp — no olvides adjuntar la imagen ahí');
 }
 
 /* ══ PRODUCT DETAIL MODAL ══ */
@@ -1187,10 +1211,10 @@ async function initProducts(){
     }
   }
   renderProds(products);
-  renderShoePicker();
 }
 
 /* ══ INIT ══ */
+renderSpecialSizes();
 initProducts();
 </script>
 </body>
