@@ -753,6 +753,12 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 /* ══ CONFIG ══ */
 const WA_NUM = '504 9606-0472'; // ← Cambia este número
 
+// #EDITAR — GOOGLE SHEET DE PRODUCTOS (opcional)
+// Pega aquí el link de "Publicar en la web" de tu Google Sheet en formato CSV
+// (Archivo → Compartir → Publicar en la web → CSV). Si lo dejas vacío, o si el
+// Sheet no carga, se usan los productos de siempre de products.js.
+const SHEET_CSV_URL = '';
+
 /* ══ PRODUCTOS ══
    Cada producto puede tener:
    - emoji: se muestra si no hay fotos
@@ -1097,9 +1103,95 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),2600);
 }
 
+/* ══ CATÁLOGO DESDE GOOGLE SHEETS (opcional) ══ */
+// Parser CSV básico (RFC4180): soporta comas y saltos de línea dentro de campos entre comillas.
+function parseCSV(text){
+  const rows=[];let row=[];let field='';let inQuotes=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQuotes){
+      if(c==='"'){ if(text[i+1]==='"'){field+='"';i++;} else{inQuotes=false;} }
+      else field+=c;
+    } else {
+      if(c==='"') inQuotes=true;
+      else if(c===','){row.push(field);field='';}
+      else if(c==='\r'){ /* ignorar */ }
+      else if(c==='\n'){row.push(field);rows.push(row);row=[];field='';}
+      else field+=c;
+    }
+  }
+  if(field.length||row.length){row.push(field);rows.push(row);}
+  return rows.filter(r=>r.some(v=>v.trim()!==''));
+}
+
+// Convierte filas de CSV (con encabezados) al mismo formato que usa products.js
+function csvRowsToProducts(rows){
+  if(!rows.length) return [];
+  const headers=rows[0].map(h=>h.trim().toLowerCase());
+  const idx=name=>headers.indexOf(name);
+  const out=[];
+  for(let r=1;r<rows.length;r++){
+    const row=rows[r];
+    const get=name=>{ const i=idx(name); return i===-1?'':(row[i]||'').trim(); };
+    const nombre=get('nombre'), precio=parseFloat(get('precio'));
+    if(!nombre||isNaN(precio)){ console.warn('Fila de Sheet ignorada (falta nombre o precio):',row); continue; }
+    const oldPriceRaw=get('precio_anterior');
+    const sizesRaw=get('tallas');
+    const coloresRaw=get('colores');
+    const producto={
+      id: get('id') ? Number(get('id'))||r : r,
+      name: nombre,
+      cat: get('categoria'),
+      emoji: get('emoji') || '✨',
+      badge: get('etiqueta') || null,
+      price: precio,
+      sizes: sizesRaw ? sizesRaw.split(',').map(s=>s.trim()).filter(Boolean) : ['Único'],
+      desc: get('descripcion'),
+    };
+    // Foto simple (sin variantes de color) — columna "imagen" del Sheet.
+    // Para productos con variantes reales de color, usa la columna "colores" en su lugar.
+    const imagenRaw=get('imagen');
+    if(imagenRaw) producto.photo=imagenRaw;
+    if(oldPriceRaw && !isNaN(parseFloat(oldPriceRaw))) producto.oldPrice=parseFloat(oldPriceRaw);
+    if(coloresRaw){
+      producto.colors=coloresRaw.split(';').map(c=>c.trim()).filter(Boolean).map(chunk=>{
+        // split(':') limitado a nombre/hex — el resto se reúne para no romper las URLs (que traen "://")
+        const parts=chunk.split(':');
+        const name=(parts[0]||'').trim();
+        const hex=(parts[1]||'#cccccc').trim();
+        const photosRaw=parts.slice(2).join(':');
+        return {
+          name,
+          hex,
+          photos: photosRaw ? photosRaw.split('|').map(p=>p.trim()).filter(Boolean) : [],
+        };
+      });
+    }
+    out.push(producto);
+  }
+  return out;
+}
+
+// Intenta cargar el catálogo desde el Sheet publicado; si falla, usa products.js
+async function initProducts(){
+  if(SHEET_CSV_URL && SHEET_CSV_URL.trim()){
+    try{
+      const res=await fetch(SHEET_CSV_URL, {cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const text=await res.text();
+      const parsed=csvRowsToProducts(parseCSV(text));
+      if(parsed.length) products=parsed;
+      else console.warn('El Google Sheet no tiene productos válidos, usando products.js');
+    }catch(e){
+      console.warn('No se pudo cargar el Google Sheet, usando products.js:', e);
+    }
+  }
+  renderProds(products);
+  renderShoePicker();
+}
+
 /* ══ INIT ══ */
-renderProds(products);
-renderShoePicker();
+initProducts();
 </script>
 </body>
 </html>
