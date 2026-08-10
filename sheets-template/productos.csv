@@ -1,0 +1,4 @@
+id,nombre,categoria,publico,precio,precio_anterior,etiqueta,tallas,descripcion,emoji,imagen,colores
+1,Producto de ejemplo 1,tacones,,250,,Nuevo,Único,"Descripción corta de este producto (categoría: tacones).",👠,https://enlace-a-tu-foto.jpg,
+2,Producto de ejemplo 2,sandalias,,400,500,Oferta,Único,"Descripción corta de este producto (categoría: sandalias).",👡,,
+3,Producto de ejemplo 3,flats,,550,,,Único,"Descripción corta de este producto (categoría: flats).",🥿,,
