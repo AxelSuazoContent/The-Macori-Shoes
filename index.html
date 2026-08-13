@@ -75,7 +75,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .strip-item::before{content:'✦';font-size:.55rem;}
 
 /* features */
-.features{padding:4rem 2rem;display:grid;grid-template-columns:repeat(5,minmax(180px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto;}
+.features{padding:4rem 2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto;min-width:0;width:100%;}
 .feat{text-align:center;padding:1.5rem;}
 .feat-icon{font-size:2.2rem;margin-bottom:.8rem;}
 .feat-title{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:.4rem;}
@@ -85,7 +85,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .home-cats{padding:1rem 2rem 4rem;max-width:1000px;margin:0 auto;width:100%;}
 .sec-label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.5rem;}
 .sec-title{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:2rem;}
-.cat-cards{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:1rem;}
+.cat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;}
 .cat-card{background:var(--papery);border:1px solid var(--border);border-radius:4px;padding:2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;}
 .cat-card:hover{background:var(--mag);color:#fff;transform:translateY(-2px);}
 .cat-card:hover .cat-card-label{color:#fff;}
@@ -353,6 +353,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
   .catalog-wrap{padding:1.5rem 1rem 3rem;}
   .look-wrap{padding:1.5rem 1rem 3rem;}
   .about-body{padding:2.5rem 1rem;}
+  .home-cats{padding:1rem 1rem 3rem;}
+  .features{padding:3rem 1rem;gap:1rem;}
 }
 </style>
 </head>
@@ -1148,6 +1150,22 @@ function parseCSV(text){
   return rows.filter(r=>r.some(v=>v.trim()!==''));
 }
 
+// Convierte enlaces "para compartir" de Google Drive (que sólo sirven para abrir la
+// vista previa en drive.google.com, no como <img src>) al formato que sí carga como
+// imagen directa. Si la URL no es de Drive, se devuelve tal cual.
+function normalizeImageUrl(url){
+  if(!url) return url;
+  url=url.trim();
+  let fileId=null;
+  let m=url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if(m) fileId=m[1];
+  else if(url.includes('drive.google.com')){
+    m=url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if(m) fileId=m[1];
+  }
+  return fileId ? `https://lh3.googleusercontent.com/d/${fileId}=w1000` : url;
+}
+
 // Convierte filas de CSV (con encabezados) al mismo formato que usa products.js
 function csvRowsToProducts(rows){
   if(!rows.length) return [];
@@ -1175,7 +1193,7 @@ function csvRowsToProducts(rows){
     // Foto simple (sin variantes de color) — columna "imagen" del Sheet.
     // Para productos con variantes reales de color, usa la columna "colores" en su lugar.
     const imagenRaw=get('imagen');
-    if(imagenRaw) producto.photo=imagenRaw;
+    if(imagenRaw) producto.photo=normalizeImageUrl(imagenRaw);
     if(oldPriceRaw && !isNaN(parseFloat(oldPriceRaw))) producto.oldPrice=parseFloat(oldPriceRaw);
     if(coloresRaw){
       producto.colors=coloresRaw.split(';').map(c=>c.trim()).filter(Boolean).map(chunk=>{
@@ -1184,12 +1202,14 @@ function csvRowsToProducts(rows){
         const name=(parts[0]||'').trim();
         const hex=(parts[1]||'#cccccc').trim();
         const photosRaw=parts.slice(2).join(':');
-        return {
-          name,
-          hex,
-          photos: photosRaw ? photosRaw.split('|').map(p=>p.trim()).filter(Boolean) : [],
-        };
+        let photos=photosRaw ? photosRaw.split('|').map(p=>normalizeImageUrl(p.trim())).filter(Boolean) : [];
+        // Si el color no trae fotos propias, usa la foto simple de la columna "imagen" como respaldo.
+        if(!photos.length && producto.photo) photos=[producto.photo];
+        return { name, hex, photos };
       });
+    } else if(producto.photo){
+      // Sin variantes de color: crea un color único para que la foto de "imagen" se muestre.
+      producto.colors=[{ name:'Único', hex:'#cccccc', photos:[producto.photo] }];
     }
     out.push(producto);
   }
