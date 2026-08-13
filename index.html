@@ -480,7 +480,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       </div>
       <div class="footer-col">
         <h4>Contacto</h4>
-        <a href="https://wa.me/5049606-0472" target="_blank">💬 WhatsApp</a>
+        <a href="https://wa.me/50496060472" target="_blank">💬 WhatsApp</a>
         <a href="https://www.instagram.com/macori.shoes">📸 Instagram</a>
         <a href="https://www.facebook.com/profile.php?id=61583667752378&locale=es_LA" target="_blank">📘 Facebook</a>
         
@@ -497,7 +497,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       <p>© 2025 The Macori Shoes — Todos los derechos reservados</p>
       <div class="socials">
         <a href="https://www.instagram.com/macori.shoes" target="_blank">Instagram</a>
-        <a href="https://wa.me/5049606-0472" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/50496060472" target="_blank">WhatsApp</a>
       </div>
     </div>
   </footer>
@@ -549,7 +549,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     </div>
     <div style="text-align:center;margin-top:3rem;">
       <button class="btn btn-primary" onclick="showView('catalogo')">Ver nuestra colección</button>
-      <a href="https://wa.me/5049606-0472" target="_blank" class="btn btn-ghost" style="text-decoration:none;">Escríbenos</a>
+      <a href="https://wa.me/50496060472" target="_blank" class="btn btn-ghost" style="text-decoration:none;">Escríbenos</a>
     </div>
   </div>
   <footer class="site-footer">
@@ -557,7 +557,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       <p>© 2025 The Macori Shoes</p>
       <div class="socials">
         <a href="https://instagram.com/themacori.shoes" target="_blank">Instagram</a>
-        <a href="https://wa.me/5049606-0472" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/50496060472" target="_blank">WhatsApp</a>
       </div>
     </div>
   </footer>
@@ -597,7 +597,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     <div class="footer-bottom" style="border-top:none;padding-top:0;">
       <p>© 2025 The Macori Shoes</p>
       <div class="socials">
-        <a href="https://wa.me/5049606-0472" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/50496060472" target="_blank">WhatsApp</a>
       </div>
     </div>
   </footer>
@@ -755,7 +755,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 <script src="products.js"></script>
 <script>
 /* ══ CONFIG ══ */
-const WA_NUM = '504 9606-0472'; // ← Cambia este número
+const WA_NUM = '50496060472'; // ← Cambia este número
 
 // #EDITAR — GOOGLE SHEET DE PRODUCTOS (opcional)
 // Enlace de exportación CSV del Sheet de productos (requiere que el Sheet esté
@@ -898,12 +898,19 @@ function updateCart(){
   document.getElementById('cart-count').textContent=cnt;
   document.getElementById('cart-total').textContent='L. '+tot.toLocaleString('es-HN',{minimumFractionDigits:2});
 }
+function cartItemPhoto(i){
+  if(!i.colors||!i.colors.length) return null;
+  const c=(i.color&&i.colors.find(c=>c.name===i.color))||i.colors[0];
+  return c&&c.photos&&c.photos[0] ? c.photos[0] : null;
+}
 function renderCart(){
   const b=document.getElementById('cp-body');
   if(!cart.length){b.innerHTML='<div class="cp-empty">🌸<br><br>Tu carrito está vacío</div>';return;}
-  b.innerHTML=cart.map(i=>`
+  b.innerHTML=cart.map(i=>{
+    const photo=cartItemPhoto(i);
+    return `
     <div class="ci">
-      <div class="ci-img">${i.emoji||'👠'}</div>
+      <div class="ci-img">${photo?`<img src="${photo}" alt="${i.name}" style="width:100%;height:100%;object-fit:cover;border-radius:3px;" onerror="this.style.display='none'">`:(i.emoji||'👠')}</div>
       <div class="ci-info">
         <p class="ci-name">${i.name}</p>
         <p class="ci-size">${i.color?'Color: '+i.color+' · ':''}Talla ${i.size}</p>
@@ -916,7 +923,8 @@ function renderCart(){
       </div>
       <button class="ci-rm" onclick="rmItem(${i.id},'${i.size}')">✕</button>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 function rmItem(id,sz){cart=cart.filter(i=>!(i.id===id&&i.size===sz));updateCart();renderCart();}
 function chQty(id,sz,d){
