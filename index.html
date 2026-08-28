@@ -163,6 +163,11 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .look-btn:hover{background:var(--papery);border-color:var(--mag);color:var(--mag);}
 .empty-state{text-align:center;padding:5rem 2rem;color:var(--muted);}
 .empty-state .eicon{font-size:3rem;margin-bottom:1rem;}
+.pagination{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:2.2rem;}
+.page-btn{padding:.5rem 1.1rem;border-radius:2px;border:1px solid var(--border);background:var(--white);font-size:.78rem;font-weight:500;color:var(--dark);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.page-btn:hover:not(:disabled){border-color:var(--mag);color:var(--mag);}
+.page-btn:disabled{opacity:.4;cursor:default;}
+.page-info{font-size:.78rem;color:var(--muted);letter-spacing:.03em;}
 
 /* ════════════════════════════════
    VIEW: PEDIDOS ESPECIALES
@@ -580,6 +585,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     <button class="pill" id="pill-flats" onclick="filterPill('flats',this)">Flats</button>
     <button class="pill" id="pill-botas" onclick="filterPill('botas',this)">Botas</button>
     <button class="pill" id="pill-sneakers" onclick="filterPill('sneakers',this)">Sneakers</button>
+    <button class="pill" id="pill-carteras" onclick="filterPill('carteras',this)">Carteras</button>
     <button class="pill" id="pill-eventos" onclick="filterPill('eventos',this)">Eventos especiales ✨</button>
     <button class="pill" id="pill-oferta" onclick="filterPill('oferta',this)">Oferta</button>
     <div class="srch-wrap">
@@ -597,6 +603,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       <div class="eicon">🌸</div>
       <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Sin resultados para ese filtro.<br>Prueba con otro.</p>
     </div>
+    <div class="pagination" id="pagination"></div>
   </div>
   <footer class="site-footer">
     <div class="footer-bottom" style="border-top:none;padding-top:0;">
@@ -798,12 +805,15 @@ const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1yrH7nmsqR3RMSypXA
 
 /* ══ STATE ══ */
 let cart=[], selProd=null, selSize=null, catFilter='todos', srchTerm='';
+let filteredList=[], currentPage=1;
+const PAGE_SIZE=12;
 const categoryLabels = {
   tacones:'Tacones',
   sandalias:'Sandalias',
   flats:'Flats',
   botas:'Botas',
   sneakers:'Sneakers',
+  carteras:'Carteras',
   eventos:'Eventos especiales',
   hombre:'Hombre'
 };
@@ -845,15 +855,21 @@ function applyFilters(){
     const ms=!srchTerm||p.name.toLowerCase().includes(srchTerm.toLowerCase());
     return mc&&ms;
   });
+  currentPage=1;
   renderProds(list);
 }
 function renderProds(list){
+  filteredList=list;
   const g=document.getElementById('products-grid');
   const em=document.getElementById('empty-state');
   document.getElementById('prod-count').textContent=list.length+' producto'+(list.length!==1?'s':'');
-  if(!list.length){g.innerHTML='';em.style.display='block';return;}
+  if(!list.length){g.innerHTML='';em.style.display='block';document.getElementById('pagination').innerHTML='';return;}
   em.style.display='none';
-  g.innerHTML=list.map(p=>{
+  const totalPages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));
+  if(currentPage>totalPages)currentPage=totalPages;
+  const start=(currentPage-1)*PAGE_SIZE;
+  const pageItems=list.slice(start,start+PAGE_SIZE);
+  g.innerHTML=pageItems.map(p=>{
     // primera foto del primer color (si existe)
     const firstPhoto = p.colors&&p.colors[0]&&p.colors[0].photos&&p.colors[0].photos[0] ? p.colors[0].photos[0] : null;
     // swatches de colores para la tarjeta
@@ -882,6 +898,21 @@ function renderProds(list){
       </div>
     </div>`;
   }).join('');
+  renderPagination(totalPages);
+}
+function renderPagination(totalPages){
+  const el=document.getElementById('pagination');
+  if(totalPages<=1){el.innerHTML='';return;}
+  el.innerHTML=`
+    <button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ Anterior</button>
+    <span class="page-info">Página ${currentPage} de ${totalPages}</span>
+    <button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>Siguiente ›</button>
+  `;
+}
+function goToPage(n){
+  currentPage=n;
+  renderProds(filteredList);
+  document.querySelector('.catalog-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 /* ══ SIZE MODAL ══ */
