@@ -648,17 +648,14 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       <p>¿Viste un modelo en otro lado y quieres saber si lo tenemos? Envíanos una foto de referencia y tu talla — te cotizamos por WhatsApp.</p>
     </div>
     <div class="look-layout">
-      <!-- IZQUIERDA: foto de referencia -->
+      <!-- IZQUIERDA: indicación para la referencia -->
       <div class="look-left">
         <h3>Imagen de referencia</h3>
         <div class="upload-zone" id="upload-zone">
-          <input type="file" accept="image/*" onchange="handlePhoto(event)">
           <div class="uz-icon">📸</div>
-          <p class="uz-title">Sube tu imagen de referencia</p>
-          <p class="uz-sub">JPG, PNG · Haz clic o arrastra tu imagen</p>
+          <p class="uz-title">Puedes enviarnos una foto por WhatsApp</p>
+          <p class="uz-sub">Muéstranos el estilo o modelo que buscas después de enviar este formulario.</p>
         </div>
-        <img class="preview-photo" id="preview-photo" src="" alt="Referencia">
-        <button class="reset-btn" id="reset-btn" onclick="resetPhoto()">✕ Cambiar imagen</button>
       </div>
       <!-- DERECHA: formulario de pedido especial -->
       <div class="look-right">
@@ -703,10 +700,10 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
         </div>
         <div class="form-field">
           <label for="sp-comments">Comentarios</label>
-          <textarea id="sp-comments" placeholder="Cuéntanos el modelo, color o cualquier detalle que nos ayude a encontrarlo o hacerlo para ti."></textarea>
+          <textarea id="sp-comments" placeholder="Cuéntanos el modelo, color o cualquier detalle. Puedes enviarnos una foto de referencia del estilo que buscas en el chat de WhatsApp."></textarea>
         </div>
         <button class="special-submit" onclick="sendSpecialOrder()">📲 Enviar pedido por WhatsApp</button>
-        <p class="special-note">Al abrir WhatsApp, toca el clip 📎 para adjuntar esta imagen en el mismo chat. Nos pondremos en contacto contigo para confirmar disponibilidad, talla y precio.</p>
+        <p class="special-note">Después de abrir WhatsApp, puedes enviarnos una foto de referencia del estilo que buscas en ese mismo chat. Confirmaremos disponibilidad, talla y precio.</p>
       </div>
     </div>
   </div>
@@ -1107,11 +1104,6 @@ function sendSpecialOrder(){
     showToast('Completa tu nombre y teléfono primero');
     return;
   }
-  if(!lookPhoto){
-    showToast('Sube una imagen de referencia primero');
-    return;
-  }
-
   let msg='Hola, quiero un pedido especial en The Macori Shoes:\n\n';
   msg+=`👤 Nombre: ${name}\n`;
   msg+=`📞 Teléfono: ${phone}\n`;
@@ -1119,20 +1111,14 @@ function sendSpecialOrder(){
   msg+=`📏 Talla: ${selectedOrderSize||'No seleccionada'}\n`;
   msg+=`💰 Presupuesto estimado: ${selectedBudget||'No especificado'}\n`;
   msg+=`📝 Comentarios: ${comments||'Sin comentarios'}\n`;
-  msg+='\n📸 Adjunto una imagen de referencia (la enviaré en este chat).\n';
+  msg+='\n📸 Puedo enviar una foto de referencia del estilo que busco en este chat.\n';
   msg+='\n¿Podrían confirmarme disponibilidad? Gracias 🙏';
 
-  if(lookFile&&navigator.share&&navigator.canShare&&navigator.canShare({files:[lookFile]})){
-    navigator.share({title:'Pedido especial The Macori Shoes',text:msg,files:[lookFile]})
-      .then(()=>showToast('✓ Comparte el pedido en WhatsApp'))
-      .catch(error=>{if(error.name!=='AbortError') openSpecialWhatsApp(msg);});
-    return;
-  }
   openSpecialWhatsApp(msg);
 }
 function openSpecialWhatsApp(msg){
   window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');
-  showToast('✓ Te llevamos a WhatsApp — no olvides adjuntar la imagen ahí');
+  showToast('✓ Te llevamos a WhatsApp — puedes enviar la foto en ese chat');
 }
 
 /* ══ PRODUCT DETAIL MODAL ══ */
