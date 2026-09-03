@@ -86,6 +86,9 @@ El catálogo puede alimentarse desde una hoja de Google Sheets en vez de
 - La columna **`colores`** acepta variantes con formato
   `Nombre:hex:foto1|foto2; Nombre2:hex2:foto1` para productos con más de un
   color.
+- La columna **`categoria`** acepta varias categorías separadas por comas,
+  por ejemplo `sandalias,oferta`. En `products.js` también puedes usar
+  `cat: ['sandalias', 'oferta']`.
 
 ## Otros ajustes rápidos
 

@@ -846,6 +846,19 @@ const categoryLabels = {
   oferta:'Ofertas'
 };
 let selectedBudget=null, selectedOrderSize=null;
+function normalizeCategory(value){
+  return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+}
+function productCategories(product){
+  const categories=Array.isArray(product.cat)?product.cat:String(product.cat||'').split(',');
+  return categories.map(normalizeCategory).filter(Boolean);
+}
+function productHasCategory(product,category){
+  return productCategories(product).includes(normalizeCategory(category));
+}
+function productCategoryLabel(product){
+  return productCategories(product).map(category=>categoryLabels[category]||category).join(' · ');
+}
 // #EDITAR — Tallas disponibles para el formulario de Pedidos Especiales
 const SHOE_SIZES=['5','5.5','6','6.5','7','7.5','8','8.5','9','10'];
 
@@ -887,7 +900,7 @@ function filterPill(f,btn){
 function searchProds(v){srchTerm=v;applyFilters();}
 function applyFilters(){
   const list=products.filter(p=>{
-    const mc=catFilter==='todos'||p.cat===catFilter||(catFilter==='oferta'&&p.oldPrice);
+    const mc=catFilter==='todos'||productHasCategory(p,catFilter)||(catFilter==='oferta'&&p.oldPrice);
     const ms=!srchTerm||p.name.toLowerCase().includes(srchTerm.toLowerCase());
     return mc&&ms;
   });
@@ -917,7 +930,7 @@ function renderProds(list){
         ${p.badge?`<span class="badge${p.oldPrice?' sale':''}">${escapeHTML(p.badge)}</span>`:''}
       </div>
       <div class="card-body">
-        <p class="card-cat">${escapeHTML(categoryLabels[p.cat]||p.cat)}</p>
+        <p class="card-cat">${escapeHTML(productCategoryLabel(p))}</p>
         <p class="card-name">${escapeHTML(p.name)}</p>
         ${swatches?`<div style="margin:.3rem 0 .4rem;">${swatches}<span style="font-size:.68rem;color:var(--muted);vertical-align:middle;margin-left:2px;">${p.colors.length} color${p.colors.length>1?'es':''}</span></div>`:''}
         <p class="card-sizes">Tallas: ${p.sizes.map(escapeHTML).join(' · ')}</p>
@@ -1070,7 +1083,7 @@ function openLookWithProduct(id){
     // con las opciones del select, así que se busca la mejor coincidencia y si
     // no hay ninguna, se cae a la última opción ("No estoy segura/o").
     const sel=document.getElementById('sp-category');
-    const label=(categoryLabels[prod.cat]||prod.cat||'').toLowerCase();
+    const label=productCategoryLabel(prod).toLowerCase();
     const opts=Array.from(sel.options).map(o=>o.value);
     const match=opts.find(o=>o.toLowerCase()===label)
       || opts.find(o=>label && (o.toLowerCase().includes(label)||label.includes(o.toLowerCase())));
@@ -1114,7 +1127,7 @@ function openPD(id){
   pdColor=pdProd.colors&&pdProd.colors.length ? pdProd.colors[0] : null;
   pdSize=null;
   // fill static fields
-  document.getElementById('pd-cat').textContent=categoryLabels[pdProd.cat]||pdProd.cat;
+  document.getElementById('pd-cat').textContent=productCategoryLabel(pdProd);
   document.getElementById('pd-name').textContent=pdProd.name;
   document.getElementById('pd-desc').textContent=pdProd.desc||'';
   let priceHTML='L. '+pdProd.price.toLocaleString('es-HN');
@@ -1305,7 +1318,7 @@ function csvRowsToProducts(rows){
     const producto={
       id: get('id') ? Number(get('id'))||r : r,
       name: nombre,
-      cat: get('categoria'),
+      cat: get('categoria').split(',').map(s=>s.trim()).filter(Boolean),
       emoji: get('emoji') || '✨',
       badge: get('etiqueta') || null,
       price: precio,
@@ -1334,7 +1347,6 @@ function csvRowsToProducts(rows){
 }
 
 function renderHomeCategoryImages(){
-  const normalizeCategory=value=>String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const productPhoto=product=>product.photo||(product.colors&&product.colors[0]&&product.colors[0].photos&&product.colors[0].photos[0]);
   const preferredProducts={botas:'Dylan',eventos:'Nina'};
   Object.keys(categoryLabels).forEach(category=>{
@@ -1344,13 +1356,11 @@ function renderHomeCategoryImages(){
     const categoryName=normalizeCategory(categoryLabels[category]);
     const preferredName=preferredProducts[category]&&normalizeCategory(preferredProducts[category]);
     const preferred=preferredName&&products.find(item=>{
-      const itemCategory=normalizeCategory(item.cat);
       return normalizeCategory(item.name)===preferredName
-        && (itemCategory===normalizeCategory(category)||itemCategory===categoryName);
+        && (productHasCategory(item,category)||productHasCategory(item,categoryName));
     });
     const product=preferred||products.find(item=>{
-      const itemCategory=normalizeCategory(item.cat);
-      return itemCategory===normalizeCategory(category)||itemCategory===categoryName;
+      return productHasCategory(item,category)||productHasCategory(item,categoryName);
     });
     const photo=product&&productPhoto(product);
     if(photo){
