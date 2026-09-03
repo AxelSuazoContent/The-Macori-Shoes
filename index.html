@@ -847,7 +847,8 @@ const categoryLabels = {
 };
 let selectedBudget=null, selectedOrderSize=null;
 function normalizeCategory(value){
-  return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+  const category=String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+  return category==='eventos especiales' ? 'eventos' : category;
 }
 function productCategories(product){
   const categories=Array.isArray(product.cat)?product.cat:String(product.cat||'').split(',');
