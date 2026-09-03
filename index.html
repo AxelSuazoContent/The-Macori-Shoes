@@ -198,11 +198,6 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .uz-icon{font-size:2.5rem;margin-bottom:.6rem;}
 .uz-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);margin-bottom:.3rem;}
 .uz-sub{font-size:.78rem;color:var(--muted);}
-.preview-photo{display:none;width:100%;border-radius:6px;border:1px solid var(--border);max-height:380px;object-fit:contain;background:var(--white);}
-.preview-photo.show{display:block;}
-.reset-btn{display:none;margin-top:.6rem;background:none;border:1px solid var(--border);color:var(--muted);border-radius:2rem;padding:.35rem .9rem;font-size:.75rem;cursor:pointer;font-family:'Inter',sans-serif;}
-.reset-btn:hover{border-color:var(--rose);color:var(--mag);}
-.reset-btn.show{display:block;}
 /* RIGHT: formulario de pedido especial */
 .look-right{}
 .look-right h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.8rem;color:var(--dark);}
@@ -847,7 +842,7 @@ const categoryLabels = {
   hombre:'Hombre',
   oferta:'Ofertas'
 };
-let lookPhoto=null, lookFile=null, selectedBudget=null, selectedOrderSize=null;
+let selectedBudget=null, selectedOrderSize=null;
 // #EDITAR — Tallas disponibles para el formulario de Pedidos Especiales
 const SHOE_SIZES=['5','5.5','6','6.5','7','7.5','8','8.5','9','10'];
 
@@ -871,6 +866,14 @@ function filterFromHome(cat){
   if(pill)pill.classList.add('active');
   else document.getElementById('pill-todos').classList.add('active');
   applyFilters();
+}
+function escapeHTML(value){
+  return String(value??'').replace(/[&<>'"]/g,char=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
+  }[char]));
+}
+function safeColor(value){
+  return /^#[0-9a-f]{3,8}$/i.test(String(value||'')) ? value : '#cccccc';
 }
 function filterPill(f,btn){
   catFilter=f;
@@ -903,18 +906,18 @@ function renderProds(list){
     // primera foto del primer color (si existe)
     const firstPhoto = p.colors&&p.colors[0]&&p.colors[0].photos&&p.colors[0].photos[0] ? p.colors[0].photos[0] : null;
     // swatches de colores para la tarjeta
-    const swatches = p.colors ? p.colors.map(c=>`<span title="${c.name}" style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${c.hex};border:1.5px solid rgba(0,0,0,.15);margin-right:2px;"></span>`).join('') : '';
+    const swatches = p.colors ? p.colors.map(c=>`<span title="${escapeHTML(c.name)}" style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${safeColor(c.hex)};border:1.5px solid rgba(0,0,0,.15);margin-right:2px;"></span>`).join('') : '';
     return `
     <div class="card" onclick="openPD(${p.id})" style="cursor:pointer;">
       <div class="card-img">
-        ${firstPhoto?`<img src="${firstPhoto}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">`:p.emoji}
-        ${p.badge?`<span class="badge${p.oldPrice?' sale':''}">${p.badge}</span>`:''}
+        ${firstPhoto?`<img src="${escapeHTML(firstPhoto)}" alt="${escapeHTML(p.name)}" loading="lazy" onerror="this.style.display='none'">`:escapeHTML(p.emoji)}
+        ${p.badge?`<span class="badge${p.oldPrice?' sale':''}">${escapeHTML(p.badge)}</span>`:''}
       </div>
       <div class="card-body">
-        <p class="card-cat">${categoryLabels[p.cat]||p.cat}</p>
-        <p class="card-name">${p.name}</p>
+        <p class="card-cat">${escapeHTML(categoryLabels[p.cat]||p.cat)}</p>
+        <p class="card-name">${escapeHTML(p.name)}</p>
         ${swatches?`<div style="margin:.3rem 0 .4rem;">${swatches}<span style="font-size:.68rem;color:var(--muted);vertical-align:middle;margin-left:2px;">${p.colors.length} color${p.colors.length>1?'es':''}</span></div>`:''}
-        <p class="card-sizes">Tallas: ${p.sizes.join(' · ')}</p>
+        <p class="card-sizes">Tallas: ${p.sizes.map(escapeHTML).join(' · ')}</p>
         <div class="card-foot">
           <span class="card-price">
             L. ${p.price.toLocaleString('es-HN')}
@@ -950,7 +953,7 @@ function openSz(id){
   selProd=products.find(p=>p.id===id);selSize=null;
   document.getElementById('sz-title').textContent=selProd.name;
   document.getElementById('sz-grid').innerHTML=selProd.sizes.map(s=>
-    `<button class="sz-opt" onclick="pickSz(this,'${s}')">${s}</button>`
+    `<button class="sz-opt" onclick="pickSz(this,${escapeHTML(JSON.stringify(s))})">${escapeHTML(s)}</button>`
   ).join('');
   document.getElementById('sz-modal').classList.add('open');
 }
@@ -991,18 +994,18 @@ function renderCart(){
     const photo=cartItemPhoto(i);
     return `
     <div class="ci">
-      <div class="ci-img">${photo?`<img src="${photo}" alt="${i.name}" style="width:100%;height:100%;object-fit:cover;border-radius:3px;" onerror="this.style.display='none'">`:(i.emoji||'👠')}</div>
+      <div class="ci-img">${photo?`<img src="${escapeHTML(photo)}" alt="${escapeHTML(i.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:3px;" onerror="this.style.display='none'">`:escapeHTML(i.emoji||'👠')}</div>
       <div class="ci-info">
-        <p class="ci-name">${i.name}</p>
-        <p class="ci-size">${i.color?'Color: '+i.color+' · ':''}Talla ${i.size}</p>
+        <p class="ci-name">${escapeHTML(i.name)}</p>
+        <p class="ci-size">${i.color?'Color: '+escapeHTML(i.color)+' · ':''}Talla ${escapeHTML(i.size)}</p>
         <p class="ci-price">L. ${(i.price*i.qty).toLocaleString('es-HN')}</p>
         <div class="qrow">
-          <button class="qb" onclick="chQty(${i.id},'${i.size}',-1)">−</button>
+          <button class="qb" onclick="chQty(${i.id},${escapeHTML(JSON.stringify(i.size))},-1)">−</button>
           <span class="qv">${i.qty}</span>
-          <button class="qb" onclick="chQty(${i.id},'${i.size}',1)">+</button>
+          <button class="qb" onclick="chQty(${i.id},${escapeHTML(JSON.stringify(i.size))},1)">+</button>
         </div>
       </div>
-      <button class="ci-rm" onclick="rmItem(${i.id},'${i.size}')">✕</button>
+      <button class="ci-rm" onclick="rmItem(${i.id},${escapeHTML(JSON.stringify(i.size))})">✕</button>
     </div>
   `;
   }).join('');
@@ -1040,31 +1043,10 @@ function sendWA(name){
 }
 
 /* ══ PEDIDOS ESPECIALES ══ */
-function handlePhoto(e){
-  const file=e.target.files[0];if(!file)return;
-  lookFile=file;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const src=ev.target.result;
-    document.getElementById('preview-photo').src=src;
-    document.getElementById('preview-photo').classList.add('show');
-    document.getElementById('upload-zone').style.display='none';
-    document.getElementById('reset-btn').classList.add('show');
-    lookPhoto=src;
-  };
-  reader.readAsDataURL(file);
-}
-function resetPhoto(){
-  lookPhoto=null;lookFile=null;
-  document.getElementById('preview-photo').classList.remove('show');
-  document.getElementById('preview-photo').src='';
-  document.getElementById('upload-zone').style.display='block';
-  document.getElementById('reset-btn').classList.remove('show');
-}
 function renderSpecialSizes(){
   const grid=document.getElementById('sp-sizes-grid');
   if(!grid) return;
-  grid.innerHTML=SHOE_SIZES.map(s=>`<button type="button" class="pd-sz" onclick="pickOrderSize(this,'${s}')">${s}</button>`).join('');
+  grid.innerHTML=SHOE_SIZES.map(s=>`<button type="button" class="pd-sz" onclick="pickOrderSize(this,${escapeHTML(JSON.stringify(s))})">${escapeHTML(s)}</button>`).join('');
 }
 function pickOrderSize(el,s){
   document.querySelectorAll('#sp-sizes-grid .pd-sz').forEach(e=>e.classList.remove('sel'));
@@ -1137,7 +1119,7 @@ function openPD(id){
   document.getElementById('pd-price').innerHTML=priceHTML;
   // sizes
   document.getElementById('pd-sizes-grid').innerHTML=pdProd.sizes.map(s=>
-    `<button class="pd-sz" onclick="pdPickSize(this,'${s}')">${s}</button>`
+    `<button class="pd-sz" onclick="pdPickSize(this,${escapeHTML(JSON.stringify(s))})">${escapeHTML(s)}</button>`
   ).join('');
   // colors
   const colorSection=document.getElementById('pd-colors-section');
@@ -1180,7 +1162,7 @@ function closeImageViewer(event){
 function renderPDColors(){
   if(!pdProd||!pdProd.colors)return;
   document.getElementById('pd-color-row').innerHTML=pdProd.colors.map((c,i)=>
-    `<span class="color-swatch${i===0?' active':''}" style="background:${c.hex};" title="${c.name}" onclick="pdSetColor(pdProd.colors[${i}],${i})"></span>`
+    `<span class="color-swatch${i===0?' active':''}" style="background:${safeColor(c.hex)};" title="${escapeHTML(c.name)}" onclick="pdSetColor(pdProd.colors[${i}],${i})"></span>`
   ).join('');
 }
 
@@ -1199,7 +1181,7 @@ function pdSetColor(color,idx){
     mainEmoji.style.display='none';
     // thumbnails
     document.getElementById('pd-thumb-row').innerHTML=color.photos.map((ph,i)=>
-      `<div class="pd-thumb${i===0?' active':''}" onclick="pdSetMainPhoto('${ph}',this)"><img src="${ph}" alt="" onerror="this.parentElement.style.display='none'"></div>`
+      `<div class="pd-thumb${i===0?' active':''}" onclick="pdSetMainPhoto(${escapeHTML(JSON.stringify(ph))},this)"><img src="${escapeHTML(ph)}" alt="" onerror="this.parentElement.style.display='none'"></div>`
     ).join('');
   } else {
     mainImg.style.display='none';
@@ -1357,9 +1339,11 @@ function renderHomeCategoryImages(){
     if(!image)return;
     const categoryName=normalizeCategory(categoryLabels[category]);
     const preferredName=preferredProducts[category]&&normalizeCategory(preferredProducts[category]);
-    const preferred=category==='oferta'
-      ? products.find(item=>item.oldPrice)
-      : preferredName&&products.find(item=>normalizeCategory(item.name)===preferredName);
+    const preferred=preferredName&&products.find(item=>{
+      const itemCategory=normalizeCategory(item.cat);
+      return normalizeCategory(item.name)===preferredName
+        && (itemCategory===normalizeCategory(category)||itemCategory===categoryName);
+    });
     const product=preferred||products.find(item=>{
       const itemCategory=normalizeCategory(item.cat);
       return itemCategory===normalizeCategory(category)||itemCategory===categoryName;
