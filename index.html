@@ -607,7 +607,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     <button class="pill" id="pill-sneakers" onclick="filterPill('sneakers',this)">Sneakers</button>
     <button class="pill" id="pill-carteras" onclick="filterPill('carteras',this)">Carteras</button>
     <button class="pill" id="pill-eventos" onclick="filterPill('eventos',this)">Eventos especiales ✨</button>
-    <button class="pill" id="pill-oferta" onclick="filterPill('oferta',this)">Oferta</button>
+    <button class="pill" id="pill-oferta" onclick="filterPill('oferta',this)">Ofertas</button>
     <div class="srch-wrap">
       <span class="srch-icon">🔍</span>
       <input type="text" placeholder="Buscar..." oninput="searchProds(this.value)">
@@ -900,7 +900,7 @@ function filterPill(f,btn){
 function searchProds(v){srchTerm=v;applyFilters();}
 function applyFilters(){
   const list=products.filter(p=>{
-    const mc=catFilter==='todos'||productHasCategory(p,catFilter)||(catFilter==='oferta'&&p.oldPrice);
+    const mc=catFilter==='todos'||productHasCategory(p,catFilter)||(catFilter==='oferta'&&Boolean(p.oldPrice));
     const ms=!srchTerm||p.name.toLowerCase().includes(srchTerm.toLowerCase());
     return mc&&ms;
   });
