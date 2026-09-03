@@ -86,14 +86,21 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .home-cats{padding:1rem 2rem 4rem;max-width:1000px;margin:0 auto;width:100%;}
 .sec-label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fus);font-weight:500;margin-bottom:.5rem;}
 .sec-title{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:2rem;}
-.cat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;}
-.cat-card{background:var(--papery);border:1px solid var(--border);border-radius:4px;padding:2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;}
+.cat-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem;}
+.cat-card{background:var(--papery);border:1px solid var(--border);border-radius:4px;overflow:hidden;text-align:center;cursor:pointer;transition:all .2s;}
 .cat-card:hover{background:var(--mag);color:#fff;transform:translateY(-2px);}
 .cat-card:hover .cat-card-label{color:#fff;}
 .cat-card:hover .cat-card-sub{color:rgba(255,255,255,.7);}
-.cat-card-icon{font-size:2.4rem;margin-bottom:.6rem;line-height:1;}
+.cat-card-photo{display:block;width:100%;aspect-ratio:1 / 1;object-fit:cover;background:var(--papery);}
+.cat-card-copy{padding:1rem .8rem 1.2rem;}
 .cat-card-label{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);margin-bottom:.2rem;}
 .cat-card-sub{font-size:.72rem;color:var(--muted);letter-spacing:.05em;}
+@media(max-width:900px){
+  .cat-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;}
+  .cat-card-copy{padding:.8rem .45rem 1rem;}
+  .cat-card-label{font-size:1rem;}
+  .cat-card-sub{font-size:.65rem;}
+}
 
 /* instagram strip */
 .ig-section{background:var(--dark);color:#fff;padding:3rem 2rem;text-align:center;}
@@ -282,16 +289,17 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .pd-box::-webkit-scrollbar-thumb{background:var(--border);}
 /* imagen lado izquierdo */
 .pd-gallery{position:relative;background:var(--papery);min-height:380px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:8px 0 0 8px;}
-.pd-main-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:opacity .3s;}
+.pd-main-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:opacity .3s;cursor:zoom-in;}
 .pd-main-emoji{font-size:7rem;z-index:1;}
 .pd-thumb-row{position:absolute;bottom:.8rem;left:50%;transform:translateX(-50%);display:flex;gap:.4rem;z-index:2;}
 .pd-thumb{width:46px;height:46px;border-radius:3px;border:2px solid rgba(255,255,255,.6);background:var(--white);overflow:hidden;cursor:pointer;transition:border-color .15s;flex-shrink:0;}
 .pd-thumb img{width:100%;height:100%;object-fit:cover;}
 .pd-thumb.active{border-color:var(--mag);}
-.pd-close{position:absolute;top:.8rem;right:.8rem;background:rgba(255,255,255,.9);border:none;width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;color:var(--dark);}
-.pd-close:hover{background:var(--mag);color:#fff;}
 /* info lado derecho */
-.pd-info{padding:2rem 1.8rem;display:flex;flex-direction:column;gap:.9rem;}
+.pd-info{padding:1.5rem 1.8rem 2rem;display:flex;flex-direction:column;gap:.9rem;overflow-y:auto;}
+.pd-info-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.pd-close{position:static;flex:0 0 auto;background:none;border:1px solid var(--border);width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;color:var(--dark);}
+.pd-close:hover{background:var(--mag);border-color:var(--mag);color:#fff;}
 .pd-cat{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--blush);font-weight:500;}
 .pd-name{font-family:'Playfair Display',serif;font-size:1.6rem;line-height:1.15;color:var(--dark);}
 .pd-price{font-size:1.3rem;font-weight:700;color:var(--mag);}
@@ -324,6 +332,13 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
   .pd-gallery{min-height:260px;border-radius:8px 8px 0 0;}
   .pd-info{padding:1.3rem 1.2rem;}
 }
+
+/* Visor de imagen para inspeccionar el modelo sin detalles */
+.img-viewer{display:none;position:fixed;inset:0;z-index:800;background:rgba(28,10,18,.92);align-items:center;justify-content:center;padding:2rem;}
+.img-viewer.open{display:flex;}
+.img-viewer img{max-width: min(96vw,1200px);max-height:92vh;width:auto;height:auto;object-fit:contain;}
+.img-viewer-close{position:absolute;top:1rem;right:1rem;width:40px;height:40px;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.img-viewer-close:hover{background:var(--mag);border-color:var(--mag);}
 
 /* ════════════════════════════════
    FOOTER
@@ -369,7 +384,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 <body>
 
 <!-- ── ANNOUNCEMENT ── -->
-<div class="ann">🌸 Envíos a todo Honduras &nbsp;·&nbsp; Nuevas colecciones disponibles &nbsp;·&nbsp; Pago contra entrega</div>
+<div class="ann">🌸 Envíos a todo Honduras &nbsp;·&nbsp; Nuevas colecciones disponibles &nbsp;·&nbsp; Apartado Con 50% de pago </div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -415,12 +430,12 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     <div class="strip-track">
       <span class="strip-item">Envíos </span>
       <span class="strip-item">Nuevos diseños cada semana</span>
-      <span class="strip-item">Pago contra entrega</span>
+      <span class="strip-item">Apartado Con 50% de pago</span>
       <span class="strip-item">Colección novia disponible</span>
       <span class="strip-item">Tallas 5–10</span>
       <span class="strip-item">Envíos </span>
       <span class="strip-item">Nuevos diseños cada semana</span>
-      <span class="strip-item">Pago contra entrega</span>
+      <span class="strip-item">Apartado Con 50% de pago</span>
       <span class="strip-item">Colección novia disponible</span>
       <span class="strip-item">Tallas 5–10</span>
     </div>
@@ -433,29 +448,36 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
   <div class="home-cats">
     <div class="cat-cards">
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('tacones')">
-        <div class="cat-card-icon">👠</div>
-        <p class="cat-card-label">Tacones</p>
-        <p class="cat-card-sub">Elegancia en cada paso</p>
+        <img class="cat-card-photo" id="home-cat-tacones" alt="Tacones">
+        <div class="cat-card-copy"><p class="cat-card-label">Tacones</p><p class="cat-card-sub">Elegancia en cada paso</p></div>
       </div>
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('sandalias')">
-        <div class="cat-card-icon">👡</div>
-        <p class="cat-card-label">Sandalias</p>
-        <p class="cat-card-sub">Frescura y estilo</p>
+        <img class="cat-card-photo" id="home-cat-sandalias" alt="Sandalias">
+        <div class="cat-card-copy"><p class="cat-card-label">Sandalias</p><p class="cat-card-sub">Frescura y estilo</p></div>
       </div>
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('flats')">
-        <div class="cat-card-icon">🥿</div>
-        <p class="cat-card-label">Flats</p>
-        <p class="cat-card-sub">Comodidad sin renunciar</p>
+        <img class="cat-card-photo" id="home-cat-flats" alt="Flats">
+        <div class="cat-card-copy"><p class="cat-card-label">Flats</p><p class="cat-card-sub">Comodidad sin renunciar</p></div>
       </div>
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('botas')">
-        <div class="cat-card-icon">🥾</div>
-        <p class="cat-card-label">Botas</p>
-        <p class="cat-card-sub">Actitud y personalidad</p>
+        <img class="cat-card-photo" id="home-cat-botas" alt="Botas">
+        <div class="cat-card-copy"><p class="cat-card-label">Botas</p><p class="cat-card-sub">Actitud y personalidad</p></div>
       </div>
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('eventos')">
-        <div class="cat-card-icon">🩰</div>
-        <p class="cat-card-label">Eventos especiales</p>
-        <p class="cat-card-sub">Tu momento inolvidable</p>
+        <img class="cat-card-photo" id="home-cat-eventos" alt="Eventos especiales">
+        <div class="cat-card-copy"><p class="cat-card-label">Eventos especiales</p><p class="cat-card-sub">Tu momento inolvidable</p></div>
+      </div>
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('sneakers')">
+        <img class="cat-card-photo" id="home-cat-sneakers" alt="Sneakers">
+        <div class="cat-card-copy"><p class="cat-card-label">Sneakers</p><p class="cat-card-sub">Comodidad urbana</p></div>
+      </div>
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('carteras')">
+        <img class="cat-card-photo" id="home-cat-carteras" alt="Carteras">
+        <div class="cat-card-copy"><p class="cat-card-label">Carteras</p><p class="cat-card-sub">El complemento perfecto</p></div>
+      </div>
+      <div class="cat-card" onclick="showView('catalogo');filterFromHome('oferta')">
+        <img class="cat-card-photo" id="home-cat-oferta" alt="Ofertas">
+        <div class="cat-card-copy"><p class="cat-card-label">Ofertas</p><p class="cat-card-sub">Estilos a precio especial</p></div>
       </div>
     </div>
   </div>
@@ -465,7 +487,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     <div class="feat"><div class="feat-icon">💬</div><p class="feat-title">Pedidos por WhatsApp</p><p class="feat-desc">Atención personalizada, rápida y sin complicaciones.</p></div>
     <div class="feat"><div class="feat-icon">↩️</div><p class="feat-title">Cambios fáciles</p><p class="feat-desc">Si la talla no es la correcta, te ayudamos sin problema.</p></div>
     <div class="feat"><div class="feat-icon">✨</div><p class="feat-title">Calidad garantizada</p><p class="feat-desc">Materiales cuidadosamente seleccionados para cada diseño.</p></div>
-    <div class="feat"><div class="feat-icon">🏧</div><p class="feat-title">Pago contra entrega</p><p class="feat-desc">Compra con total confianza y paga cuando recibes tu pedido.</p></div>
+    <div class="feat"><div class="feat-icon">🏧</div><p class="feat-title">Apartado Con 50% de pago</p><p class="feat-desc">Compra con total confianza y paga cuando recibes tu pedido.</p></div>
   </div>
 
   <div class="ig-section">
@@ -498,8 +520,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       <div class="footer-col">
         <h4>Info</h4>
         <p>Envíos a todo Honduras</p>
-        <p>Pago contra entrega</p>
-        <p>Tallas 35 – 41</p>
+        <p>Apartado Con 50% de pago</p>
+        <p>Tallas 5 – 10</p>
         <p>Pedidos de lun a sáb</p>
       </div>
     </div>
@@ -684,7 +706,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
           <textarea id="sp-comments" placeholder="Cuéntanos el modelo, color o cualquier detalle que nos ayude a encontrarlo o hacerlo para ti."></textarea>
         </div>
         <button class="special-submit" onclick="sendSpecialOrder()">📲 Enviar pedido por WhatsApp</button>
-        <p class="special-note">Nos pondremos en contacto contigo por WhatsApp para confirmar disponibilidad, talla y precio.</p>
+        <p class="special-note">Al abrir WhatsApp, toca el clip 📎 para adjuntar esta imagen en el mismo chat. Nos pondremos en contacto contigo para confirmar disponibilidad, talla y precio.</p>
       </div>
     </div>
   </div>
@@ -702,14 +724,18 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
     <!-- Galería -->
     <div class="pd-gallery" id="pd-gallery">
       <span class="pd-main-emoji" id="pd-main-emoji"></span>
-      <img class="pd-main-img" id="pd-main-img" src="" alt="" style="display:none;">
+      <img class="pd-main-img" id="pd-main-img" src="" alt="" style="display:none;" onclick="openImageViewer()">
       <div class="pd-thumb-row" id="pd-thumb-row"></div>
-      <button class="pd-close" onclick="closePD()">✕</button>
     </div>
     <!-- Info -->
     <div class="pd-info">
-      <p class="pd-cat" id="pd-cat"></p>
-      <h2 class="pd-name" id="pd-name"></h2>
+      <div class="pd-info-head">
+        <div>
+          <p class="pd-cat" id="pd-cat"></p>
+          <h2 class="pd-name" id="pd-name"></h2>
+        </div>
+        <button class="pd-close" onclick="closePD()" aria-label="Cerrar detalle">✕</button>
+      </div>
       <p class="pd-price" id="pd-price"></p>
 
       <!-- Colores -->
@@ -734,6 +760,12 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
       <button class="pd-wa-btn" onclick="pdDirectWA()">💬 Preguntar por WhatsApp</button>
     </div>
   </div>
+</div>
+
+<!-- ── IMAGE VIEWER ── -->
+<div class="img-viewer" id="img-viewer" onclick="closeImageViewer(event)">
+  <img id="img-viewer-photo" src="" alt="Vista ampliada del producto" onclick="event.stopPropagation()">
+  <button class="img-viewer-close" onclick="closeImageViewer(event)" aria-label="Cerrar imagen">✕</button>
 </div>
 
 <!-- ── CART OVERLAY ── -->
@@ -815,9 +847,10 @@ const categoryLabels = {
   sneakers:'Sneakers',
   carteras:'Carteras',
   eventos:'Eventos especiales',
-  hombre:'Hombre'
+  hombre:'Hombre',
+  oferta:'Ofertas'
 };
-let lookPhoto=null, selectedBudget=null, selectedOrderSize=null;
+let lookPhoto=null, lookFile=null, selectedBudget=null, selectedOrderSize=null;
 // #EDITAR — Tallas disponibles para el formulario de Pedidos Especiales
 const SHOE_SIZES=['5','5.5','6','6.5','7','7.5','8','8.5','9','10'];
 
@@ -1012,6 +1045,7 @@ function sendWA(name){
 /* ══ PEDIDOS ESPECIALES ══ */
 function handlePhoto(e){
   const file=e.target.files[0];if(!file)return;
+  lookFile=file;
   const reader=new FileReader();
   reader.onload=ev=>{
     const src=ev.target.result;
@@ -1024,7 +1058,7 @@ function handlePhoto(e){
   reader.readAsDataURL(file);
 }
 function resetPhoto(){
-  lookPhoto=null;
+  lookPhoto=null;lookFile=null;
   document.getElementById('preview-photo').classList.remove('show');
   document.getElementById('preview-photo').src='';
   document.getElementById('upload-zone').style.display='block';
@@ -1082,12 +1116,21 @@ function sendSpecialOrder(){
   msg+=`👤 Nombre: ${name}\n`;
   msg+=`📞 Teléfono: ${phone}\n`;
   msg+=`🏷️ Tipo: ${category}\n`;
-  if(selectedOrderSize) msg+=`📏 Talla: ${selectedOrderSize}\n`;
-  if(selectedBudget) msg+=`💰 Presupuesto estimado: ${selectedBudget}\n`;
-  if(comments) msg+=`📝 Comentarios: ${comments}\n`;
+  msg+=`📏 Talla: ${selectedOrderSize||'No seleccionada'}\n`;
+  msg+=`💰 Presupuesto estimado: ${selectedBudget||'No especificado'}\n`;
+  msg+=`📝 Comentarios: ${comments||'Sin comentarios'}\n`;
   msg+='\n📸 Adjunto una imagen de referencia (la enviaré en este chat).\n';
   msg+='\n¿Podrían confirmarme disponibilidad? Gracias 🙏';
 
+  if(lookFile&&navigator.share&&navigator.canShare&&navigator.canShare({files:[lookFile]})){
+    navigator.share({title:'Pedido especial The Macori Shoes',text:msg,files:[lookFile]})
+      .then(()=>showToast('✓ Comparte el pedido en WhatsApp'))
+      .catch(error=>{if(error.name!=='AbortError') openSpecialWhatsApp(msg);});
+    return;
+  }
+  openSpecialWhatsApp(msg);
+}
+function openSpecialWhatsApp(msg){
   window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');
   showToast('✓ Te llevamos a WhatsApp — no olvides adjuntar la imagen ahí');
 }
@@ -1130,8 +1173,22 @@ function openPD(id){
 
 function closePD(){
   document.getElementById('pd-modal').classList.remove('open');
+  closeImageViewer();
   document.body.style.overflow='';
   pdProd=null;pdColor=null;pdSize=null;
+}
+
+function openImageViewer(){
+  const mainImg=document.getElementById('pd-main-img');
+  if(mainImg.style.display==='none'||!mainImg.src)return;
+  document.getElementById('img-viewer-photo').src=mainImg.src;
+  document.getElementById('img-viewer').classList.add('open');
+}
+
+function closeImageViewer(event){
+  if(event&&event.target.id==='img-viewer-photo')return;
+  document.getElementById('img-viewer').classList.remove('open');
+  document.getElementById('img-viewer-photo').src='';
 }
 
 function renderPDColors(){
@@ -1305,6 +1362,28 @@ function csvRowsToProducts(rows){
   return out;
 }
 
+function renderHomeCategoryImages(){
+  const normalizeCategory=value=>String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const productPhoto=product=>product.photo||(product.colors&&product.colors[0]&&product.colors[0].photos&&product.colors[0].photos[0]);
+  const preferredProducts={botas:'Dylan',eventos:'Nina'};
+  Object.keys(categoryLabels).forEach(category=>{
+    const image=document.getElementById('home-cat-'+category);
+    if(!image)return;
+    const categoryName=normalizeCategory(categoryLabels[category]);
+    const preferredName=preferredProducts[category]&&normalizeCategory(preferredProducts[category]);
+    const preferred=category==='oferta'
+      ? products.find(item=>item.oldPrice)
+      : preferredName&&products.find(item=>normalizeCategory(item.name)===preferredName);
+    const product=preferred||products.find(item=>{
+      const itemCategory=normalizeCategory(item.cat);
+      return itemCategory===normalizeCategory(category)||itemCategory===categoryName;
+    });
+    const photo=product&&productPhoto(product);
+    if(photo) image.src=photo;
+    else image.style.display='none';
+  });
+}
+
 // Intenta cargar el catálogo desde el Sheet publicado; si falla, usa products.js
 async function initProducts(){
   if(SHEET_CSV_URL && SHEET_CSV_URL.trim()){
@@ -1319,6 +1398,7 @@ async function initProducts(){
       console.warn('No se pudo cargar el Google Sheet, usando products.js:', e);
     }
   }
+  renderHomeCategoryImages();
   renderProds(products);
 }
 
