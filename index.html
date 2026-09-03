@@ -1334,6 +1334,10 @@ function renderHomeCategoryImages(){
   const normalizeCategory=value=>String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const productPhoto=product=>product.photo||(product.colors&&product.colors[0]&&product.colors[0].photos&&product.colors[0].photos[0]);
   const preferredProducts={botas:'Dylan',eventos:'Nina'};
+  const fallbackPhotos={
+    eventos:'Img/zapatos/nina silver .jpeg',
+    oferta:'Img/zapatos/euphemie negro .jpeg'
+  };
   Object.keys(categoryLabels).forEach(category=>{
     const image=document.getElementById('home-cat-'+category);
     if(!image)return;
@@ -1348,7 +1352,7 @@ function renderHomeCategoryImages(){
       const itemCategory=normalizeCategory(item.cat);
       return itemCategory===normalizeCategory(category)||itemCategory===categoryName;
     });
-    const photo=product&&productPhoto(product);
+    const photo=(product&&productPhoto(product))||fallbackPhotos[category];
     if(photo) image.src=photo;
     else image.style.display='none';
   });
