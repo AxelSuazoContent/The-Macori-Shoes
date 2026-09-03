@@ -92,6 +92,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
 .cat-card:hover .cat-card-label{color:#fff;}
 .cat-card:hover .cat-card-sub{color:rgba(255,255,255,.7);}
 .cat-card-photo{display:block;width:100%;aspect-ratio:1 / 1;object-fit:cover;background:var(--papery);}
+.cat-card-fallback{display:flex;width:100%;aspect-ratio:1 / 1;align-items:center;justify-content:center;background:var(--papery);font-size:4.5rem;}
 .cat-card-copy{padding:1rem .8rem 1.2rem;}
 .cat-card-label{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--dark);margin-bottom:.2rem;}
 .cat-card-sub{font-size:.72rem;color:var(--muted);letter-spacing:.05em;}
@@ -459,7 +460,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
         <div class="cat-card-copy"><p class="cat-card-label">Botas</p><p class="cat-card-sub">Actitud y personalidad</p></div>
       </div>
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('eventos')">
-        <img class="cat-card-photo" id="home-cat-eventos" alt="Eventos especiales">
+        <img class="cat-card-photo" id="home-cat-eventos" alt="Eventos especiales" style="display:none;">
+        <div class="cat-card-fallback" id="home-cat-eventos-fallback">🩰</div>
         <div class="cat-card-copy"><p class="cat-card-label">Eventos especiales</p><p class="cat-card-sub">Tu momento inolvidable</p></div>
       </div>
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('sneakers')">
@@ -471,7 +473,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);position:stick
         <div class="cat-card-copy"><p class="cat-card-label">Carteras</p><p class="cat-card-sub">El complemento perfecto</p></div>
       </div>
       <div class="cat-card" onclick="showView('catalogo');filterFromHome('oferta')">
-        <img class="cat-card-photo" id="home-cat-oferta" alt="Ofertas">
+        <img class="cat-card-photo" id="home-cat-oferta" alt="Ofertas" style="display:none;">
+        <div class="cat-card-fallback" id="home-cat-oferta-fallback">✨</div>
         <div class="cat-card-copy"><p class="cat-card-label">Ofertas</p><p class="cat-card-sub">Estilos a precio especial</p></div>
       </div>
     </div>
@@ -1334,13 +1337,10 @@ function renderHomeCategoryImages(){
   const normalizeCategory=value=>String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const productPhoto=product=>product.photo||(product.colors&&product.colors[0]&&product.colors[0].photos&&product.colors[0].photos[0]);
   const preferredProducts={botas:'Dylan',eventos:'Nina'};
-  const fallbackPhotos={
-    eventos:'Img/zapatos/nina silver .jpeg',
-    oferta:'Img/zapatos/euphemie negro .jpeg'
-  };
   Object.keys(categoryLabels).forEach(category=>{
     const image=document.getElementById('home-cat-'+category);
     if(!image)return;
+    const fallback=document.getElementById('home-cat-'+category+'-fallback');
     const categoryName=normalizeCategory(categoryLabels[category]);
     const preferredName=preferredProducts[category]&&normalizeCategory(preferredProducts[category]);
     const preferred=preferredName&&products.find(item=>{
@@ -1352,9 +1352,15 @@ function renderHomeCategoryImages(){
       const itemCategory=normalizeCategory(item.cat);
       return itemCategory===normalizeCategory(category)||itemCategory===categoryName;
     });
-    const photo=(product&&productPhoto(product))||fallbackPhotos[category];
-    if(photo) image.src=photo;
-    else image.style.display='none';
+    const photo=product&&productPhoto(product);
+    if(photo){
+      image.src=photo;
+      image.style.display='block';
+      if(fallback) fallback.style.display='none';
+    } else {
+      image.style.display='none';
+      if(fallback) fallback.style.display='flex';
+    }
   });
 }
 
